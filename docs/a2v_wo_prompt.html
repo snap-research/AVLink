@@ -1,0 +1,1701 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link href="resources/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="./resources/bulma.min.css">
+	<link rel="stylesheet" href="./resources/bulma-carousel.min.css">
+	<link rel="stylesheet" href="./resources/bulma-slider.min.css">
+	<link rel="stylesheet" href="./resources/fontawesome.all.min.css">
+	<link rel="stylesheet" href="./resources/index.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script defer src="./resources/fontawesome.all.min.js"></script>
+	<script src="./resources/bulma-carousel.min.js"></script>
+	<script src="./resources/bulma-slider.min.js"></script>
+	<script src="./resources/index.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			// Loop through all tables on the page
+			document.querySelectorAll('table').forEach(table => {
+				// Find the "Ours" column in the header
+				const headerCells = table.querySelectorAll('thead th');
+				headerCells.forEach((cell, index) => {
+					if (cell.textContent.trim() === 'Ours') {
+						// Highlight the column dynamically
+						const columnIndex = index + 1; // Column index (1-based for nth-child)
+						table.querySelectorAll(`thead th:nth-child(${columnIndex}), tbody td:nth-child(${columnIndex})`)
+							.forEach(colCell => {
+								colCell.style.backgroundColor = '#e0f7fa';
+								colCell.style.color = '#0288d1';
+								colCell.style.fontWeight = 'bold';
+							});
+					}
+				});
+			});
+		});
+		
+	</script>
+	
+	<title>AV-Link</title>
+
+	<style>
+		video {
+			object-fit: cover;
+		}
+
+		.video-gallery {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 20px;
+			padding: 20px;
+			max-width: 1600px;
+			margin: auto;
+			overflow: visible; /* Ensure sticky works */
+		}
+
+		.video-item {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background-color: #f0f0f0;
+			padding: 15px;
+			border-radius: 8px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}
+
+		.video-gallery video {
+			width: 256;
+			height: 144;
+			border-radius: 8px;
+		}
+
+		.video-item video {
+			width: 256;
+			height: 144;
+			border-radius: 8px;
+		}
+
+		.video-caption {
+			margin-top: 10px;
+			font-size: 16px;
+			color: #333;
+			text-align: center;
+		}
+
+
+		.video-item {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background-color: #f7f7f7;
+			/* Light gray for subtle contrast */
+			padding: 15px;
+			border-radius: 8px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			overflow: hidden;
+			/* Ensures content stays inside the box */
+		}
+
+		.video-item video {
+			width: 100%;
+			/* Make the video span the full width */
+			height: auto;
+			/* Maintain aspect ratio */
+			border-radius: 8px 8px 0 0;
+			/* Rounded corners for the top */
+		}
+
+		.video-prompt {
+			width: 100%;
+			margin-top: 0;
+			padding: 10px 15px;
+			background-color: #e0e0e0;
+			/* Subtle gray background for contrast */
+			font-size: 1rem;
+			font-family: 'Roboto', Arial, sans-serif;
+			color: #333;
+			/* Darker text for readability */
+			text-align: center;
+			border-radius: 0 0 8px 8px;
+			/* Matches the box's bottom corners */
+		}
+
+
+		.navbar {
+			position: fixed;
+			top: 0;
+			width: 100%;
+			background: linear-gradient(90deg, #e8f402, #0546ea);
+			padding: 1rem 2rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+			font-family: 'Arial', sans-serif;
+			color: white;
+			z-index: 1000;
+		}
+		
+		/* Left Section (Logo + Brand Name) */
+		.navbar-left {
+			display: flex;
+			align-items: center;
+		}
+		
+		.navbar-logo {
+			height: 50px;
+			/* Logo size */
+			width: 100px;
+			/* Keep it square */
+			margin-right: 1rem;
+			/* Space between logo and brand */
+			border-radius: 10%;
+			/* Slightly rounded logo */
+		}
+
+		
+		.navbar-brand {
+			font-size: 1.8rem;
+			font-weight: bold;
+			text-transform: uppercase;
+			letter-spacing: 1.5px;
+			color: rgb(2, 35, 219);
+		}
+		
+		/* Right Section (Links) */
+		.navbar-right {
+			display: flex;
+			align-items: center;
+			margin-right: 20px; /* Added margin to the right */
+		}
+		
+		/* Navbar Links and Dropdown Buttons */
+		.navbar-right a,
+		.navbar-right .dropbtn {
+			color: #f2f2f2;
+			text-decoration: none;
+			font-size: 1.2rem; /* Increased font size */
+			margin-left: 1.5rem;
+			padding: 0.5rem 1rem;
+			border-radius: 5px;
+			position: relative;
+			cursor: pointer;
+			transition: all 0.3s ease-in-out;
+		}
+		
+		/* Add a caret indicator for dropdowns */
+		.dropbtn::after {
+			content: ' ▼';
+			font-size: 0.8rem;
+			margin-left: 0.3rem;
+		}
+		
+		/* Hover effects for links and dropdown buttons */
+		.navbar-right a:hover,
+		.dropdown:hover .dropbtn {
+			background-color: rgba(255, 255, 255, 0.2);
+			color: #000;
+		}
+		
+		/* Dropdown Container */
+		.dropdown {
+			position: relative;
+			display: inline-block;
+		}
+		
+		/* Dropdown Content */
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: #fff; /* Changed to white for better contrast */
+			min-width: 200px;
+			box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+			border-radius: 5px;
+			padding: 0.5rem 0;
+			z-index: 1000;
+			top: 100%; /* Position it directly below the parent */
+			left: 0;
+		}
+		
+		/* Dropdown Links */
+		.dropdown-content a {
+			color: #000;
+			padding: 0.5rem 1.5rem;
+			text-decoration: none;
+			display: block;
+			font-size: 1rem;
+		}
+		
+		/* Show Dropdown on Hover */
+		.dropdown:hover .dropdown-content {
+			display: block;
+		}
+		
+		/* Dropdown Item Hover Effect */
+		.dropdown-content a:hover {
+			background-color: rgba(0, 0, 0, 0.1);
+		}
+		
+		/* Remove Margin from Last Navbar Item */
+		.navbar-right a:last-child {
+			margin-right: 0;
+		}
+		
+		/* Optional: Improve Navbar Responsiveness */
+		@media (max-width: 768px) {
+			.navbar {
+				flex-direction: column;
+				padding: 1rem;
+			}
+			.navbar-right {
+				flex-direction: column;
+				align-items: flex-start;
+				margin-right: 0;
+			}
+			.navbar-right a,
+			.navbar-right .dropbtn {
+				margin: 0.5rem 0;
+			}
+		}
+
+		/* Leave Space Below Navbar */
+		body {
+			padding-top: 80px;
+			/* Leave space for the navbar (adjust based on navbar height) */
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		#loading-bar {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 0%;
+			height: 4px;
+			background-color: #29d;
+			z-index: 9999;
+			transition: width 0.4s ease;
+		}
+
+		table thead th {
+			position: sticky;
+			top: 0;
+			background-color: white;
+			z-index: 1;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		
+		table thead th {
+			position: sticky;
+			top: 80px; /* Account for navbar height */
+			background-color: white;
+			z-index: 2;
+			box-sizing: border-box;
+			padding: 10px; /* Ensure padding does not interfere */
+		}
+
+		thead th {
+			background-color: #f7f7f7; /* Light background for header */
+			font-weight: bold;
+		}
+
+		.video-gallery {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 20px;
+			padding: 20px;
+			max-width: 1600px;
+			margin: auto;
+			overflow: visible; /* Ensure sticky works */
+		}
+
+		body {
+			overflow-x: visible;
+		}
+
+		th.our-method {
+			background-color: #e0f7fa; /* Light teal background */
+			color: #0288d1;           /* Text color */
+			font-weight: bold;        /* Make text bold */
+			border: 2px solid #0288d1;
+		}
+		
+
+	</style>
+
+
+</head>
+
+<body>
+	<div class="navbar">
+		<div class="navbar-left">
+			<a href="index.html">
+			<img src="resources/logo.png" alt="Logo" class="navbar-logo">
+			</a>
+			<a href="index.html">
+			<span class="navbar-brand">AV-Link</span>
+		</a>
+			
+		</div>
+		<div class="navbar-right">
+
+			<!-- Video-to-Audio Dropdown -->
+			<p class="additional-results">Additional Results:</p>
+			<div class="dropdown">
+				<span class="dropbtn">Video-to-Audio</span>
+				<div class="dropdown-content">
+					<a href="in_the_wild.html#A2V_lab_recorded">Real-world Examples</a>
+					<a href="control_w_prompt.html#V2A_various_prompts">Control Audio with Text Prompt</a>
+					<a href="moviegen.html#A2V_moviegen_wo_prompt">Movie Gen Benchmark</a>
+				</div>
+			</div>
+			
+			<!-- Audio-to-Video Dropdown -->
+			<div class="dropdown">
+				<span class="dropbtn">Audio-to-Video</span>
+				<div class="dropdown-content">
+					<a href="a2v_w_prompt.html#A2V_upscaled_w_prompt">With Text Prompt</a>
+					<a href="a2v_wo_prompt.html#A2V_upscaled_wo_prompt">Without Text Prompt</a>
+				</div>
+			</div>
+			
+
+
+
+		</div>
+	</div>
+	
+	<section class="jumbotron text-center" style="padding-top: 10%;">
+		<h1 class="publication-title">AV-Link: Temporally-Aligned Diffusion Features for Cross-Modal Audio-Video
+			Generation</h1>
+		<br />
+
+		<div class="is-size-5 publication-authors">
+			<span class="author-block">
+				<p class="author">
+					<span class="author"><a target="_blank" href="https://moayedha.com/">Moayed
+							Haji-Ali,</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href=https://www.willimenapace.com>Willi
+							Menapace,</a>&nbsp;</span>
+					<span class="author"><a target="_blank"
+							href=https://aliaksandrsiarohin.github.io/aliaksandr-siarohin-website/>Aliaksandr
+						Siarohin,</a>&nbsp;</span>
+					
+					<span class="author"><a target="_blank"
+							href=https://universome.github.io> Ivan Skorokhodov,</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href=https://alpercanberk.github.io/>Alper Canberk,</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href=https://www.linkedin.com/in/kwotsin>Kwot Sin Lee,</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href="https://vislang.ai/">Vicente Ordonez,</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href=http://www.stulyakov.com>Sergey
+							Tulyakov</a>&nbsp;</span>
+					
+				</p>
+				<span class="author-block">
+		</div>
+		<div class="collabs" , align-items="center">
+			<img class="rice-icon" src="./assets/logos/rice.svg" alt="Rice University Logo" , height="10px">
+			<div class="snap">
+				<img src="./assets/logos/snap.png" alt="Snap Research Logo">
+				<span>Snap Research</span>
+			</div>
+		</div>
+	
+		<div class="resources", style="padding-top: 2%;">
+
+			<div class="resource-item">
+			  <a  class="paper-btn resource-text" href="#">
+			  <!-- <img src="./assets/icons/arxiv-logo.png" alt="Paper" class="resource-icon"> -->
+			  Research Paper 
+			  </a>
+			</div>
+			<div class="resource-item">
+			  <a  class="paper-btn  resource-text" href="#">
+			  <!-- <img src="./assets/icons/github-mark.png" alt="Code" class="resource-icon"> -->
+			  Github
+			  </a>
+			</div>
+			
+			
+		  </div>
+	</section>
+
+
+	<div class="container pt-5" id="A2V_upscaled_wo_prompt"> </div>
+	<div class="container pt-5" style="margin-top: 3%;">
+		<div class="content has-text-justified">
+            <h2 class="title is-3">Baseline Comparison on VGGSounds</h2>
+            <p><b>Task description:</b> Based of an input audio alone, AV-Link generates <b>temporally-aligned</b>
+ videos. <b>Input:</b> audio -> video.</p>
+            <p><b>Baselines:</b> We compare AV-LINK with TempoToken. We observe that TempoToken lacks temporal alignment and occasionally
+ generates videos that are not semantically consistent with the input audio.</p>
+            <p><b>Dataset:</b> We selected samples from VGGSounds that exhibit clear temporal actions. Our method
+ generates 36x64 videos at 6fps. We use an upsampler to increase the generated video resoltion to
+ 144x256.</p>
+        </div>
+	</div>
+
+	<div class="video-gallery">
+		<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+			<thead>
+				<tr>
+					<th  class="our-method">Ours</th>
+					<th>TempoToken</th>
+					<th  class="our-method">Ours</th>
+					<th>TempoToken</th>
+					<th  class="our-method">Ours</th>
+					<th>TempoToken</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00011_s0000009.tar_sFXhkOSzUEM_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00011_s0000009.tar_sFXhkOSzUEM_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00013_s0000005.tar_-VE0KBtc9Jc_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00013_s0000005.tar_-VE0KBtc9Jc_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00014_s0000006.tar_XYgof7pBVMc_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00014_s0000006.tar_XYgof7pBVMc_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 2 -->
+				<tr>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00014_s0000006.tar_d3jUeM6s9zs_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00014_s0000006.tar_d3jUeM6s9zs_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00014_s0000006.tar_oF2Ov6jt0qQ_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00014_s0000006.tar_oF2Ov6jt0qQ_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00015_s0000001.tar_lgRoFXL-3XI_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00015_s0000001.tar_lgRoFXL-3XI_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 3 -->
+				<tr>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00016_s0000002.tar_CkcGPy20OnE_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00016_s0000002.tar_CkcGPy20OnE_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00017_s0000003.tar_A2YMwd-NUvk_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00017_s0000003.tar_A2YMwd-NUvk_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00017_s0000004.tar_au_F6Yiv8n4_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00017_s0000004.tar_au_F6Yiv8n4_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+
+				<!-- Row 4 -->
+				<tr>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00017_s0000004.tar_nQvSjoltRv0_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00017_s0000004.tar_nQvSjoltRv0_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00019_s0000001.tar_6ef0YJdtoMI_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00019_s0000001.tar_6ef0YJdtoMI_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00020_s0000011.tar_EatYQ7nitak_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00020_s0000011.tar_EatYQ7nitak_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 5 -->
+				<tr>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00022_s0000004.tar_CCClTuPSvUE_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00022_s0000004.tar_CCClTuPSvUE_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00022_s0000009.tar_-A013j57UDs_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00022_s0000009.tar_-A013j57UDs_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00024_s0000000.tar_TRW3OqA1cXE_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00024_s0000000.tar_TRW3OqA1cXE_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 6 -->
+				<tr>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00024_s0000009.tar_0xLYpA0TaZs_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00024_s0000009.tar_0xLYpA0TaZs_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00026_s0000001.tar_8R8gNtlkqxg_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00026_s0000001.tar_8R8gNtlkqxg_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00027_s0000001.tar_ojF6dm1bmDI_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00027_s0000001.tar_ojF6dm1bmDI_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 7 -->
+				<tr>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00027_s0000003.tar_vx70WrQtQn8_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00027_s0000003.tar_vx70WrQtQn8_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00027_s0000008.tar_lUdheD7wUA8_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00027_s0000008.tar_lUdheD7wUA8_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00030_s0000001.tar_eX6f4m1LKG0_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00030_s0000001.tar_eX6f4m1LKG0_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 8 -->
+				<tr>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00036_s0000000.tar_eLpoiPXQe1Q_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00036_s0000000.tar_eLpoiPXQe1Q_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00037_s0000001.tar_nB0N3TggbtM_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00037_s0000001.tar_nB0N3TggbtM_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00039_s0000002.tar_9pirwVkSxZQ_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00039_s0000002.tar_9pirwVkSxZQ_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 9 -->
+				<tr>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00044_s0000008.tar__xeRvX4VdL4_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00044_s0000008.tar__xeRvX4VdL4_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00052_s0000001.tar_8c_pb6dimmU_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00052_s0000001.tar_8c_pb6dimmU_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00052_s0000004.tar_wXHRuB4pQYA_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00052_s0000004.tar_wXHRuB4pQYA_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 10 -->
+				<tr>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00058_s0000000.tar_bnqsQhk2yX0_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00058_s0000000.tar_bnqsQhk2yX0_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00011_s0000009.tar_sFXhkOSzUEM_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00011_s0000009.tar_sFXhkOSzUEM_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00011_s0000009.tar_sFXhkOSzUEM_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_wo_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00011_s0000009.tar_sFXhkOSzUEM_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+
+				<!-- Add rows for all remaining videos -->
+			</tbody>
+		</table>
+	</div>
+
+
+
+
+	<div class="container pt-5" id="A2V_additional_results_wo_prompt"> </div>
+	<div class="container pt-5" style="margin-top: 3%;">
+		<div class="content has-text-justified">
+			<h2 class="title is-3">Additional Qualitative Results</h2>
+			<p>We provide additional generated videos from our model based solely on the audio input.</p>
+		</div>
+	</div>
+
+	<div class="video-gallery">
+		<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+			<tbody>
+								<!-- Row 12 -->
+								<tr>
+									<td>
+										<video controls width="256" height="144">
+											<source
+												src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00035_s0000000.tar_w4A7YeO82Hw_000_split_00000.mp4"
+												type="video/mp4">
+											Your browser does not support the video tag.
+										</video>
+									</td>
+									<td>
+										<video controls width="256" height="144">
+											<source
+												src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00059_s0000006.tar_je6jJoTbFWs_000_split_00000.mp4"
+												type="video/mp4">
+											Your browser does not support the video tag.
+										</video>
+									</td>
+									<td>
+										<video controls width="256" height="144">
+											<source
+												src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00036_s0000004.tar_OZk7zLHtTfU_001_split_00000.mp4"
+												type="video/mp4">
+											Your browser does not support the video tag.
+										</video>
+									</td>
+									<td>
+										<video controls width="256" height="144">
+											<source
+												src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00036_s0000007.tar_Xk3qb9ccN7c_000_split_00000.mp4"
+												type="video/mp4">
+											Your browser does not support the video tag.
+										</video>
+									</td>
+									<td>
+										<video controls width="256" height="144">
+											<source
+												src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00037_s0000003.tar_XWINmSdr0fU_000_split_00000.mp4"
+												type="video/mp4">
+											Your browser does not support the video tag.
+										</video>
+									</td>
+									<td>
+										<video controls width="256" height="144">
+											<source
+												src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00038_s0000001.tar_DnIIWmhDMV8_000_split_00000.mp4"
+												type="video/mp4">
+											Your browser does not support the video tag.
+										</video>
+									</td>
+								</tr>
+				<!-- Row 11 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00019_s0000009.tar_0U_4GIy891k_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00031_s0000001.tar_VFeHrwDD80A_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00032_s0000005.tar_20lD2IKCYLE_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00033_s0000003.tar_XEfuHe0lFb0_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00035_s0000000.tar_-WNELSjjnJc_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00035_s0000000.tar_0QbbhhMU2Z0_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 1 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000002.tar_maTyDEZO58w_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000004.tar_7iv2SWcqGJo_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000005.tar_wHIjOdMc00k_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000007.tar_DcLtoccyNpI_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000007.tar_UC2lXx-5YFI_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000007.tar_UrKimFbYAwc_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 2 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000007.tar_nNbI-kSSeTg_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000007.tar_s4QPhe05VU4_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000012.tar_2RkDezD3hMw_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00001_s0000010.tar_Alg4Fk0iWIs_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00001_s0000010.tar_BUZyO8j8y5k_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00002_s0000004.tar_GQIn85GT1MI_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 3 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00002_s0000012.tar_xfthfH6KGpA_001_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00058_s0000012.tar_eQ8CMCLS5rY_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00003_s0000000.tar_hOwxu29shC8_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00003_s0000005.tar_FuWDfaQjbvs_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00003_s0000005.tar_Q-Pxy9DgwrQ_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00003_s0000005.tar_dHGHii7uzGs_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+
+				<!-- Row 4 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00003_s0000007.tar_0Pw3OAXHNLM_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00003_s0000007.tar_cETwkA4M_7Q_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00004_s0000000.tar_geFkIhLY8uY_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00004_s0000001.tar_iZXJa54zPGY_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00005_s0000007.tar_K6jl5hBd1Vg_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00005_s0000012.tar_LwdZFo0yVeY_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 5 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00005_s0000012.tar_eosBaG7RjZ4_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00005_s0000012.tar_opjVpERArV4_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00006_s0000009.tar_MCNLP7g5NQg_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00006_s0000010.tar_-TIr4yEY89k_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000000.tar_3EDVI-yzHuA_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000000.tar_AZK8IQuPk-4_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+
+				<!-- Row 6 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000001.tar_GFgEUBlTNzw_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000001.tar_SJXrTtzbUIg_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00059_s0000005.tar_rPa9mZsprbw_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000001.tar_s0o9ZeaF5ZI_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000002.tar_7uOf0j0P8HU_001_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000002.tar_C5Ge3-VJ3kk_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 7 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000002.tar_IINqN6L2NsY_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000004.tar_u45ds9-wWYU_001_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000011.tar_KfJ7q4EEebY_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000011.tar_O2GHoOj4alk_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000012.tar_vh3mNcg8Jw8_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00009_s0000005.tar_53CkJPWzclE_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 8 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00009_s0000008.tar__yhAPqBCWJs_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00009_s0000010.tar_0-KeN5sfo-M_001_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00009_s0000010.tar_v3XbJ3p1jco_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00010_s0000007.tar_8kekGAzvdlc_001_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00010_s0000012.tar_r4YHQSzdBPE_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00010_s0000012.tar_xrOBIM_vE0c_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+
+				<!-- Row 9 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00012_s0000000.tar_ih7g1UFPtIw_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00012_s0000011.tar__klUrw_uf70_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00013_s0000001.tar_3BJCaTuG8bE_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00013_s0000011.tar_cCxkwzHlH7U_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00014_s0000002.tar_sYj4hpDUZDQ_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00015_s0000006.tar_0XsmNbj0RQ8_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 10 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00015_s0000008.tar_hb9i-cmm21k_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00016_s0000002.tar_NmrQlhq0SDw_001_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00016_s0000002.tar_u2Adz6cdDzs_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00016_s0000011.tar_7YXXP53yOQ4_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00016_s0000011.tar_93MsxAGvS50_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00019_s0000005.tar_V1bb9hZQ40Q_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+
+
+
+				<!-- Row 13 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00038_s0000001.tar_Y_KD0BA2x58_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00038_s0000003.tar_-2D-DycYR14_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00039_s0000011.tar_MZ9Wtffp06M_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00041_s0000008.tar_Q31iu7DauMA_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00042_s0000002.tar_jmZirstohnU_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00042_s0000008.tar_w2vMywh5Nto_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 14 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00042_s0000010.tar_hIz2RUNi5sc_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00043_s0000003.tar_bZYpQ6pAHmY_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00043_s0000003.tar_sN8fi0FN8WI_001_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00043_s0000004.tar_-9HoMjD6Opk_001_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00043_s0000005.tar_KBN_Lo28Giw_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00043_s0000005.tar_bUxoCOhBVO4_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+
+				<!-- Row 15 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00043_s0000009.tar_LxYCCBN7xTU_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00043_s0000011.tar_a1Mc5TXDn8M_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00043_s0000011.tar_opxGmpKOiE4_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00044_s0000000.tar_LFOA_mphwHY_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00044_s0000000.tar_n-ROp_0N70A_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00045_s0000001.tar_UDiRuGO_vDg_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 16 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00045_s0000001.tar_VnarX9slmQg_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00045_s0000002.tar_bgCC1xTEBTs_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00049_s0000006.tar_IyxiRouLzh4_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00049_s0000010.tar_c0jnBzvRkHs_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00050_s0000006.tar_jFRUhDUN4gM_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00052_s0000007.tar_Pm1uw5-lV-I_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 17 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00055_s0000007.tar_iAhwjk4p77g_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00058_s0000001.tar_LTK_x_t6mZE_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00058_s0000001.tar_i4KWON16vDI_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00058_s0000008.tar_3LBn3tHuNkg_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00058_s0000008.tar_OyoMr0zI3Hk_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00058_s0000008.tar_l4yndc3v8Hw_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+
+
+				<!-- Add additional rows here for remaining videos -->
+			</tbody>
+		</table>
+	</div>
+
+	
+
+
+
+</body>
+
+</html>

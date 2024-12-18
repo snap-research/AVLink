@@ -1,0 +1,1075 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link href="resources/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="./resources/bulma.min.css">
+	<link rel="stylesheet" href="./resources/bulma-carousel.min.css">
+	<link rel="stylesheet" href="./resources/bulma-slider.min.css">
+	<link rel="stylesheet" href="./resources/fontawesome.all.min.css">
+	<link rel="stylesheet" href="./resources/index.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script defer src="./resources/fontawesome.all.min.js"></script>
+	<script src="./resources/bulma-carousel.min.js"></script>
+	<script src="./resources/bulma-slider.min.js"></script>
+	<script src="./resources/index.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			// Loop through all tables on the page
+			document.querySelectorAll('table').forEach(table => {
+				// Find the "Ours" column in the header
+				const headerCells = table.querySelectorAll('thead th');
+				headerCells.forEach((cell, index) => {
+					if (cell.textContent.trim() === 'Ours') {
+						// Highlight the column dynamically
+						const columnIndex = index + 1; // Column index (1-based for nth-child)
+						table.querySelectorAll(`thead th:nth-child(${columnIndex}), tbody td:nth-child(${columnIndex})`)
+							.forEach(colCell => {
+								colCell.style.backgroundColor = '#e0f7fa';
+								colCell.style.color = '#0288d1';
+								colCell.style.fontWeight = 'bold';
+							});
+					}
+				});
+			});
+		});
+		
+	</script>
+	
+	<title>AV-Link</title>
+
+	<style>
+		video {
+			object-fit: cover;
+		}
+
+		.video-gallery {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 20px;
+			padding: 20px;
+			max-width: 1600px;
+			margin: auto;
+			overflow: visible; /* Ensure sticky works */
+		}
+
+		.video-item {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background-color: #f0f0f0;
+			padding: 15px;
+			border-radius: 8px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}
+
+		.video-gallery video {
+			width: 256;
+			height: 144;
+			border-radius: 8px;
+		}
+
+		.video-item video {
+			width: 256;
+			height: 144;
+			border-radius: 8px;
+		}
+
+		.video-caption {
+			margin-top: 10px;
+			font-size: 16px;
+			color: #333;
+			text-align: center;
+		}
+
+
+		.video-item {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background-color: #f7f7f7;
+			/* Light gray for subtle contrast */
+			padding: 15px;
+			border-radius: 8px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			overflow: hidden;
+			/* Ensures content stays inside the box */
+		}
+
+		.video-item video {
+			width: 100%;
+			/* Make the video span the full width */
+			height: auto;
+			/* Maintain aspect ratio */
+			border-radius: 8px 8px 0 0;
+			/* Rounded corners for the top */
+		}
+
+		.video-prompt {
+			width: 100%;
+			margin-top: 0;
+			padding: 10px 15px;
+			background-color: #e0e0e0;
+			/* Subtle gray background for contrast */
+			font-size: 1rem;
+			font-family: 'Roboto', Arial, sans-serif;
+			color: #333;
+			/* Darker text for readability */
+			text-align: center;
+			border-radius: 0 0 8px 8px;
+			/* Matches the box's bottom corners */
+		}
+
+
+		.navbar {
+			position: fixed;
+			top: 0;
+			width: 100%;
+			background: linear-gradient(90deg, #e8f402, #0546ea);
+			padding: 1rem 2rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+			font-family: 'Arial', sans-serif;
+			color: white;
+			z-index: 1000;
+		}
+		
+		/* Left Section (Logo + Brand Name) */
+		.navbar-left {
+			display: flex;
+			align-items: center;
+		}
+		
+		.navbar-logo {
+			height: 50px;
+			/* Logo size */
+			width: 100px;
+			/* Keep it square */
+			margin-right: 1rem;
+			/* Space between logo and brand */
+			border-radius: 10%;
+			/* Slightly rounded logo */
+		}
+
+		
+		.navbar-brand {
+			font-size: 1.8rem;
+			font-weight: bold;
+			text-transform: uppercase;
+			letter-spacing: 1.5px;
+			color: rgb(2, 35, 219);
+		}
+		
+		/* Right Section (Links) */
+		.navbar-right {
+			display: flex;
+			align-items: center;
+			margin-right: 20px; /* Added margin to the right */
+		}
+		
+		/* Navbar Links and Dropdown Buttons */
+		.navbar-right a,
+		.navbar-right .dropbtn {
+			color: #f2f2f2;
+			text-decoration: none;
+			font-size: 1.2rem; /* Increased font size */
+			margin-left: 1.5rem;
+			padding: 0.5rem 1rem;
+			border-radius: 5px;
+			position: relative;
+			cursor: pointer;
+			transition: all 0.3s ease-in-out;
+		}
+		
+		/* Add a caret indicator for dropdowns */
+		.dropbtn::after {
+			content: ' ▼';
+			font-size: 0.8rem;
+			margin-left: 0.3rem;
+		}
+		
+		/* Hover effects for links and dropdown buttons */
+		.navbar-right a:hover,
+		.dropdown:hover .dropbtn {
+			background-color: rgba(255, 255, 255, 0.2);
+			color: #000;
+		}
+		
+		/* Dropdown Container */
+		.dropdown {
+			position: relative;
+			display: inline-block;
+		}
+		
+		/* Dropdown Content */
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: #fff; /* Changed to white for better contrast */
+			min-width: 200px;
+			box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+			border-radius: 5px;
+			padding: 0.5rem 0;
+			z-index: 1000;
+			top: 100%; /* Position it directly below the parent */
+			left: 0;
+		}
+		
+		/* Dropdown Links */
+		.dropdown-content a {
+			color: #000;
+			padding: 0.5rem 1.5rem;
+			text-decoration: none;
+			display: block;
+			font-size: 1rem;
+		}
+		
+		/* Show Dropdown on Hover */
+		.dropdown:hover .dropdown-content {
+			display: block;
+		}
+		
+		/* Dropdown Item Hover Effect */
+		.dropdown-content a:hover {
+			background-color: rgba(0, 0, 0, 0.1);
+		}
+		
+		/* Remove Margin from Last Navbar Item */
+		.navbar-right a:last-child {
+			margin-right: 0;
+		}
+		
+		/* Optional: Improve Navbar Responsiveness */
+		@media (max-width: 768px) {
+			.navbar {
+				flex-direction: column;
+				padding: 1rem;
+			}
+			.navbar-right {
+				flex-direction: column;
+				align-items: flex-start;
+				margin-right: 0;
+			}
+			.navbar-right a,
+			.navbar-right .dropbtn {
+				margin: 0.5rem 0;
+			}
+		}
+
+		/* Leave Space Below Navbar */
+		body {
+			padding-top: 80px;
+			/* Leave space for the navbar (adjust based on navbar height) */
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		#loading-bar {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 0%;
+			height: 4px;
+			background-color: #29d;
+			z-index: 9999;
+			transition: width 0.4s ease;
+		}
+
+		table thead th {
+			position: sticky;
+			top: 0;
+			background-color: white;
+			z-index: 1;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		
+		table thead th {
+			position: sticky;
+			top: 80px; /* Account for navbar height */
+			background-color: white;
+			z-index: 2;
+			box-sizing: border-box;
+			padding: 10px; /* Ensure padding does not interfere */
+		}
+
+		thead th {
+			background-color: #f7f7f7; /* Light background for header */
+			font-weight: bold;
+		}
+
+		.video-gallery {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 20px;
+			padding: 20px;
+			max-width: 1600px;
+			margin: auto;
+			overflow: visible; /* Ensure sticky works */
+		}
+
+		body {
+			overflow-x: visible;
+		}
+
+		th.our-method {
+			background-color: #e0f7fa; /* Light teal background */
+			color: #0288d1;           /* Text color */
+			font-weight: bold;        /* Make text bold */
+			border: 2px solid #0288d1;
+		}
+		
+
+	</style>
+
+
+</head>
+
+<body>
+	<div class="navbar">
+		<div class="navbar-left">
+			<a href="index.html">
+			<img src="resources/logo.png" alt="Logo" class="navbar-logo">
+			</a>
+			<a href="index.html">
+			<span class="navbar-brand">AV-Link</span>
+		</a>
+			
+		</div>
+		<div class="navbar-right">
+
+			<!-- Video-to-Audio Dropdown -->
+			<p class="additional-results">Additional Results:</p>
+			<div class="dropdown">
+				<span class="dropbtn">Video-to-Audio</span>
+				<div class="dropdown-content">
+					<a href="in_the_wild.html#A2V_lab_recorded">Real-world Examples</a>
+					<a href="control_w_prompt.html#V2A_various_prompts">Control Audio with Text Prompt</a>
+					<a href="moviegen.html#A2V_moviegen_wo_prompt">Movie Gen Benchmark</a>
+				</div>
+			</div>
+			
+			<!-- Audio-to-Video Dropdown -->
+			<div class="dropdown">
+				<span class="dropbtn">Audio-to-Video</span>
+				<div class="dropdown-content">
+					<a href="a2v_w_prompt.html#A2V_upscaled_w_prompt">With Text Prompt</a>
+					<a href="a2v_wo_prompt.html#A2V_upscaled_wo_prompt">Without Text Prompt</a>
+				</div>
+			</div>
+			
+
+
+
+		</div>
+	</div>
+
+	
+	<section class="jumbotron text-center" style="padding-top: 10%;">
+		<h1 class="publication-title">AV-Link: Temporally-Aligned Diffusion Features for Cross-Modal Audio-Video
+			Generation</h1>
+		<br />
+
+		<div class="is-size-5 publication-authors">
+			<span class="author-block">
+				<p class="author">
+					<span class="author"><a target="_blank" href="https://moayedha.com/">Moayed
+							Haji-Ali,</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href=https://www.willimenapace.com>Willi
+							Menapace,</a>&nbsp;</span>
+					<span class="author"><a target="_blank"
+							href=https://aliaksandrsiarohin.github.io/aliaksandr-siarohin-website/>Aliaksandr
+						Siarohin,</a>&nbsp;</span>
+					
+					<span class="author"><a target="_blank"
+							href=https://universome.github.io> Ivan Skorokhodov,</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href=https://alpercanberk.github.io/>Alper Canberk,</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href=https://www.linkedin.com/in/kwotsin>Kwot Sin Lee,</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href="https://vislang.ai/">Vicente Ordonez</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href=http://www.stulyakov.com>Sergey
+							Tulyakov,</a>&nbsp;</span>
+					
+				</p>
+				<span class="author-block">
+		</div>
+		<div class="collabs" , align-items="center">
+			<img class="rice-icon" src="./assets/logos/rice.svg" alt="Rice University Logo" , height="10px">
+			<div class="snap">
+				<img src="./assets/logos/snap.png" alt="Snap Research Logo">
+				<span>Snap Research</span>
+			</div>
+		</div>
+	
+		<div class="resources", style="padding-top: 2%;">
+
+			<div class="resource-item">
+			  <a  class="paper-btn resource-text" href="#">
+			  <!-- <img src="./assets/icons/arxiv-logo.png" alt="Paper" class="resource-icon"> -->
+			  Research Paper 
+			  </a>
+			</div>
+			<div class="resource-item">
+			  <a  class="paper-btn  resource-text" href="#">
+			  <!-- <img src="./assets/icons/github-mark.png" alt="Code" class="resource-icon"> -->
+			  Github
+			  </a>
+			</div>
+			
+			
+		  </div>
+	</section>
+
+
+	<div class="container pt-5" id="A2V_lab_recorded"> </div>
+	<div class="container pt-5" style="margin-top: 3%;">
+		<div class="content has-text-justified">
+            <h2 class="title is-3">In-The-Wild Baseline Comparison on Video-to-Audio without Text Prompts</h2>
+            <p><b>Task Description:</b> To evaluate our method in real-world scenarios, we compare it against baselines
+ using videos recorded in our lab. <b>Input:</b> video → audio.</p>
+            <p><b>Baselines:</b> We compare our method with state-of-the-art approaches: FoleyCrafter, Diff-Foley, and
+ Frieren. We observe that all baselines struggle with in-the-wild videos, exhibiting a lack of temporal
+ alignment and producing low-quality audio. All videos are cropped to 5s for consistency.</p>
+            <p><b>Dataset:</b> We recorded various videos featuring sounds with distinct temporal characteristics.</p>
+        </div>
+	</div>
+
+
+
+	<div class="video-gallery" overflow-y: scroll;>
+		<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+			<thead>
+				<tr>
+					<th>Video ID</th>
+					<th>Groundtruth</th>
+					<th  class="our-method">Ours</th>
+					<th>FoleyCrafter</th>
+					<th>Diff-foley</th>
+					<th>Frieren</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Rows for all videos -->
+				<tr>
+					<td>1</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video36_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video36_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video36_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video36_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video36_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr> 
+				<tr>
+					<td>2</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video14_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video14_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video14_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video14_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video14_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video31_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video31_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video31_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video31_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video31_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video12_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video12_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video12_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video12_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video12_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video16_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video16_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video16_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video16_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video16_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video25_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video25_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video25_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video25_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video25_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video34_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video34_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video34_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video34_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video34_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<tr>
+					<td>8</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video3_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video3_split_00000.mp4" type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video3_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video3_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video3_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<tr>
+					<td>9</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video15_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video15_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video15_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video15_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video15_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<tr>
+					<td>10</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video19_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video19_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video19_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video19_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video19_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<tr>
+					<td>11</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video21_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video21_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video21_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video21_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video21_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+
+				<tr>
+					<td>12</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video33_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video33_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video33_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video33_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video33_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<tr>
+					<td>13</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video37_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video37_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video37_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video37_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video37_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<tr>
+					<td>14</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video41_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video41_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video41_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video41_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video41_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<tr>
+					<td>15</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video6_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video6_split_00000.mp4" type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video6_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video6_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video6_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+
+				<tr>
+					<td>16</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video13_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video13_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video13_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video13_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video13_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+
+				<tr>
+					<td>17</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video1_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video1_split_00000.mp4" type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video1_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video1_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video1_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<tr>
+					<td>18</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video23_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video23_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video23_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video23_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video23_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<tr>
+					<td>19</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video2_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video2_split_00000.mp4" type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video2_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video2_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video2_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+
+				<tr>
+					<td>20</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video39_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video39_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video39_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video39_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video39_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<tr>
+					<td>21</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video4_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video4_split_00000.mp4" type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video4_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video4_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video4_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- <tr>
+					<td>18</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video9_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video9_split_00000.mp4" type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video9_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video9_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video9_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr> -->
+
+
+				<tr>
+					<td>22</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video18_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video18_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video18_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video18_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video18_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<tr>
+					<td>23</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video20_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video20_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video20_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video20_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video20_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<tr>
+					<td>24</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video24_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video24_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video24_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video24_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video24_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+
+
+
+				<tr>
+					<td>25</td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Groundtruth/video5_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Ours/video5_split_00000.mp4" type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/FoleyCrafter/video5_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/Diff-foley/video5_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls width="256" height="144">
+							<source src="data/video_to_audio/lab_recorded/baseline3/video5_split_00000.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+
+
+</body>
+
+</html>

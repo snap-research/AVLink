@@ -1,0 +1,185 @@
+.container {
+    text-align: center;
+    width: 100%;
+}
+
+.videoslider {
+    position: relative;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.video-title {
+    font-size: 36px;
+    margin-bottom: 10px;
+    text-align: left;
+    color: #333;
+}
+
+.video-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.video-container video {
+    width: 100%;
+    height: auto; /* Maintains aspect ratio */
+    border: 2px solid #ddd;
+    /* Removed brightness filter and object-fit for natural aspect ratio */
+    transition: filter 0.5s ease;
+}
+
+/* No dimming on hover */
+.video-container video:hover {
+    /* No brightness adjustment on hover */
+}
+
+.mute-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 200;
+}
+
+.mute-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.mute-icon {
+    font-size: 20px;
+    color: #fff;
+}
+
+/* Navigation Wrapper below the main video */
+.navigation-wrapper {
+    position: relative;
+    /* margin-top: 20px; */
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Navigation Styles */
+.videoslider .navigation {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100%; /* Takes full width available */
+    box-sizing: border-box;
+}
+
+.videoslider .navigation::-webkit-scrollbar {
+    display: none;
+}
+
+.videoslider .navigation li {
+    cursor: pointer;
+    margin: 0 10px;
+    border-radius: 4px;
+    background: #fff;
+    padding: 3px;
+    opacity: 0.8;
+    transition: opacity 0.5s, transform 0.5s;
+    display: inline-block;
+    vertical-align: middle;
+    flex: 0 0 auto;
+}
+
+.videoslider .navigation li:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.videoslider .navigation li video {
+    width: 200px;
+    height: auto; /* Keep aspect ratio in previews as well */
+    border-radius: 4px;
+    pointer-events: none;
+    /* Removed object-fit: cover for previews if you prefer natural aspect ratio */
+    transition: width 0.5s, height 0.5s, opacity 0.5s;
+}
+
+.videoslider .navigation li video:hover {
+    width: 250px;
+    /* height will adjust automatically if keeping aspect ratio */
+    opacity: 1;
+}
+
+.slider-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 1000;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.slider-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.slider-button.left {
+    left: 10px;
+}
+
+.slider-button.right {
+    right: 10px;
+}
+
+.main-caption-bar {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
+    font-weight: bold;
+    box-shadow: 0 0 3px rgba(0,0,0,0.1);
+}
+
+.preview-caption-bar {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+    color: #333;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-align: center;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 3px rgba(0,0,0,0.1);
+}

@@ -1,0 +1,2126 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link href="resources/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="./resources/bulma.min.css">
+	<link rel="stylesheet" href="./resources/bulma-carousel.min.css">
+	<link rel="stylesheet" href="./resources/bulma-slider.min.css">
+	<link rel="stylesheet" href="./resources/fontawesome.all.min.css">
+	<link rel="stylesheet" href="./resources/index.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script defer src="./resources/fontawesome.all.min.js"></script>
+	<script src="./resources/bulma-carousel.min.js"></script>
+	<script src="./resources/bulma-slider.min.js"></script>
+	<script src="./resources/index.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			// Loop through all tables on the page
+			document.querySelectorAll('table').forEach(table => {
+				// Find the "Ours" column in the header
+				const headerCells = table.querySelectorAll('thead th');
+				headerCells.forEach((cell, index) => {
+					if (cell.textContent.trim() === 'Ours') {
+						// Highlight the column dynamically
+						const columnIndex = index + 1; // Column index (1-based for nth-child)
+						table.querySelectorAll(`thead th:nth-child(${columnIndex}), tbody td:nth-child(${columnIndex})`)
+							.forEach(colCell => {
+								colCell.style.backgroundColor = '#e0f7fa';
+								colCell.style.color = '#0288d1';
+								colCell.style.fontWeight = 'bold';
+							});
+					}
+				});
+			});
+		});
+		
+	</script>
+	
+	<title>AV-Link</title>
+
+	<style>
+		video {
+			object-fit: cover;
+		}
+
+		.video-gallery {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 20px;
+			padding: 20px;
+			max-width: 1600px;
+			margin: auto;
+			overflow: visible; /* Ensure sticky works */
+		}
+
+		.video-item {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background-color: #f0f0f0;
+			padding: 15px;
+			border-radius: 8px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}
+
+		.video-gallery video {
+			width: 256;
+			height: 144;
+			border-radius: 8px;
+		}
+
+		.video-item video {
+			width: 256;
+			height: 144;
+			border-radius: 8px;
+		}
+
+		.video-caption {
+			margin-top: 10px;
+			font-size: 16px;
+			color: #333;
+			text-align: center;
+		}
+
+
+		.video-item {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background-color: #f7f7f7;
+			/* Light gray for subtle contrast */
+			padding: 15px;
+			border-radius: 8px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			overflow: hidden;
+			/* Ensures content stays inside the box */
+		}
+
+		.video-item video {
+			width: 100%;
+			/* Make the video span the full width */
+			height: auto;
+			/* Maintain aspect ratio */
+			border-radius: 8px 8px 0 0;
+			/* Rounded corners for the top */
+		}
+
+		.video-prompt {
+			width: 100%;
+			margin-top: 0;
+			padding: 10px 15px;
+			background-color: #e0e0e0;
+			/* Subtle gray background for contrast */
+			font-size: 1rem;
+			font-family: 'Roboto', Arial, sans-serif;
+			color: #333;
+			/* Darker text for readability */
+			text-align: center;
+			border-radius: 0 0 8px 8px;
+			/* Matches the box's bottom corners */
+		}
+
+
+		.navbar {
+			position: fixed;
+			top: 0;
+			width: 100%;
+			background: linear-gradient(90deg, #e8f402, #0546ea);
+			padding: 1rem 2rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+			font-family: 'Arial', sans-serif;
+			color: white;
+			z-index: 1000;
+		}
+		
+		/* Left Section (Logo + Brand Name) */
+		.navbar-left {
+			display: flex;
+			align-items: center;
+		}
+		
+		.navbar-logo {
+			height: 50px;
+			/* Logo size */
+			width: 100px;
+			/* Keep it square */
+			margin-right: 1rem;
+			/* Space between logo and brand */
+			border-radius: 10%;
+			/* Slightly rounded logo */
+		}
+
+		
+		.navbar-brand {
+			font-size: 1.8rem;
+			font-weight: bold;
+			text-transform: uppercase;
+			letter-spacing: 1.5px;
+			color: rgb(2, 35, 219);
+		}
+		
+		/* Right Section (Links) */
+		.navbar-right {
+			display: flex;
+			align-items: center;
+			margin-right: 20px; /* Added margin to the right */
+		}
+		
+		/* Navbar Links and Dropdown Buttons */
+		.navbar-right a,
+		.navbar-right .dropbtn {
+			color: #f2f2f2;
+			text-decoration: none;
+			font-size: 1.2rem; /* Increased font size */
+			margin-left: 1.5rem;
+			padding: 0.5rem 1rem;
+			border-radius: 5px;
+			position: relative;
+			cursor: pointer;
+			transition: all 0.3s ease-in-out;
+		}
+		
+		/* Add a caret indicator for dropdowns */
+		.dropbtn::after {
+			content: ' ▼';
+			font-size: 0.8rem;
+			margin-left: 0.3rem;
+		}
+		
+		/* Hover effects for links and dropdown buttons */
+		.navbar-right a:hover,
+		.dropdown:hover .dropbtn {
+			background-color: rgba(255, 255, 255, 0.2);
+			color: #000;
+		}
+		
+		/* Dropdown Container */
+		.dropdown {
+			position: relative;
+			display: inline-block;
+		}
+		
+		/* Dropdown Content */
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: #fff; /* Changed to white for better contrast */
+			min-width: 200px;
+			box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+			border-radius: 5px;
+			padding: 0.5rem 0;
+			z-index: 1000;
+			top: 100%; /* Position it directly below the parent */
+			left: 0;
+		}
+		
+		/* Dropdown Links */
+		.dropdown-content a {
+			color: #000;
+			padding: 0.5rem 1.5rem;
+			text-decoration: none;
+			display: block;
+			font-size: 1rem;
+		}
+		
+		/* Show Dropdown on Hover */
+		.dropdown:hover .dropdown-content {
+			display: block;
+		}
+		
+		/* Dropdown Item Hover Effect */
+		.dropdown-content a:hover {
+			background-color: rgba(0, 0, 0, 0.1);
+		}
+		
+		/* Remove Margin from Last Navbar Item */
+		.navbar-right a:last-child {
+			margin-right: 0;
+		}
+		
+		/* Optional: Improve Navbar Responsiveness */
+		@media (max-width: 768px) {
+			.navbar {
+				flex-direction: column;
+				padding: 1rem;
+			}
+			.navbar-right {
+				flex-direction: column;
+				align-items: flex-start;
+				margin-right: 0;
+			}
+			.navbar-right a,
+			.navbar-right .dropbtn {
+				margin: 0.5rem 0;
+			}
+		}
+
+		/* Leave Space Below Navbar */
+		body {
+			padding-top: 80px;
+			/* Leave space for the navbar (adjust based on navbar height) */
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		#loading-bar {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 0%;
+			height: 4px;
+			background-color: #29d;
+			z-index: 9999;
+			transition: width 0.4s ease;
+		}
+
+		table thead th {
+			position: sticky;
+			top: 0;
+			background-color: white;
+			z-index: 1;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		
+		table thead th {
+			position: sticky;
+			top: 80px; /* Account for navbar height */
+			background-color: white;
+			z-index: 2;
+			box-sizing: border-box;
+			padding: 10px; /* Ensure padding does not interfere */
+		}
+
+		thead th {
+			background-color: #f7f7f7; /* Light background for header */
+			font-weight: bold;
+		}
+
+		.video-gallery {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 20px;
+			padding: 20px;
+			max-width: 1600px;
+			margin: auto;
+			overflow: visible; /* Ensure sticky works */
+		}
+
+		body {
+			overflow-x: visible;
+		}
+
+		th.our-method {
+			background-color: #e0f7fa; /* Light teal background */
+			color: #0288d1;           /* Text color */
+			font-weight: bold;        /* Make text bold */
+			border: 2px solid #0288d1;
+		}
+		
+
+	</style>
+
+
+</head>
+
+<body>
+	<div class="navbar">
+		<div class="navbar-left">
+			<a href="index.html">
+			<img src="resources/logo.png" alt="Logo" class="navbar-logo">
+			</a>
+			<a href="index.html">
+			<span class="navbar-brand">AV-Link</span>
+		</a>
+			
+		</div>
+		<div class="navbar-right">
+
+			<!-- Video-to-Audio Dropdown -->
+			<p class="additional-results">Additional Results:</p>
+			<div class="dropdown">
+				<span class="dropbtn">Video-to-Audio</span>
+				<div class="dropdown-content">
+					<a href="in_the_wild.html#A2V_lab_recorded">Real-world Examples</a>
+					<a href="control_w_prompt.html#V2A_various_prompts">Control Audio with Text Prompt</a>
+					<a href="moviegen.html#A2V_moviegen_wo_prompt">Movie Gen Benchmark</a>
+				</div>
+			</div>
+			
+			<!-- Audio-to-Video Dropdown -->
+			<div class="dropdown">
+				<span class="dropbtn">Audio-to-Video</span>
+				<div class="dropdown-content">
+					<a href="a2v_w_prompt.html#A2V_upscaled_w_prompt">With Text Prompt</a>
+					<a href="a2v_wo_prompt.html#A2V_upscaled_wo_prompt">Without Text Prompt</a>
+				</div>
+			</div>
+			
+
+
+
+		</div>
+	</div>
+	
+	<section class="jumbotron text-center" style="padding-top: 10%;">
+		<h1 class="publication-title">AV-Link: Temporally-Aligned Diffusion Features for Cross-Modal Audio-Video
+			Generation</h1>
+		<br />
+
+		<div class="is-size-5 publication-authors">
+			<span class="author-block">
+				<p class="author">
+					<span class="author"><a target="_blank" href="https://moayedha.com/">Moayed
+							Haji-Ali,</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href=https://www.willimenapace.com>Willi
+							Menapace,</a>&nbsp;</span>
+					<span class="author"><a target="_blank"
+							href=https://aliaksandrsiarohin.github.io/aliaksandr-siarohin-website/>Aliaksandr
+						Siarohin,</a>&nbsp;</span>
+					
+					<span class="author"><a target="_blank"
+							href=https://universome.github.io> Ivan Skorokhodov,</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href=https://alpercanberk.github.io/>Alper Canberk,</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href=https://www.linkedin.com/in/kwotsin>Kwot Sin Lee,</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href="https://vislang.ai/">Vicente Ordonez</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href=http://www.stulyakov.com>Sergey
+							Tulyakov,</a>&nbsp;</span>
+					
+				</p>
+				<span class="author-block">
+		</div>
+		<div class="collabs" , align-items="center">
+			<img class="rice-icon" src="./assets/logos/rice.svg" alt="Rice University Logo" , height="10px">
+			<div class="snap">
+				<img src="./assets/logos/snap.png" alt="Snap Research Logo">
+				<span>Snap Research</span>
+			</div>
+		</div>
+	
+		<div class="resources", style="padding-top: 2%;">
+
+			<div class="resource-item">
+			  <a  class="paper-btn resource-text" href="#">
+			  <!-- <img src="./assets/icons/arxiv-logo.png" alt="Paper" class="resource-icon"> -->
+			  Research Paper 
+			  </a>
+			</div>
+			<div class="resource-item">
+			  <a  class="paper-btn  resource-text" href="#">
+			  <!-- <img src="./assets/icons/github-mark.png" alt="Code" class="resource-icon"> -->
+			  Github
+			  </a>
+			</div>
+			
+			
+		  </div>
+	</section>
+
+
+	<div class="container pt-5" id="A2V_upscaled_w_prompt"> </div>
+	<div class="container pt-5" style="margin-top: 3%;">
+		<div class="content has-text-justified">
+            <h2 class="title is-3">Baseline comparison on VGGSounds with Text Guidance</h2>
+            <p><b>Task description:</b> For an input audio and text prompt, AV-Link generates <b>temporally-aligned</b>
+ videos. <b>Input:</b> audio + video text descriptoin -> video.</p>
+            <p><b>Baselines:</b> We compare AV-LINK with TempoToken. We notice that TempoToken displays poor temporal alignment.</p>
+            <p><b>Dataset:</b> We selected samples from VGGSounds that exhibit clear temporal actions. Our method
+ generates 36x64 videos at 6fps. We use an upsampler to increase the generated video resoltion to
+ 144x256.</p>
+        </div>
+	</div>
+
+    <div class="video-gallery">
+		<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+			<thead>
+				<tr>
+					<th>Prompt</th>
+					<th  class="our-method">Ours</th>
+					<th>TempoToken</th>
+					<th>Prompt</th>
+					<th  class="our-method">Ours</th>
+					<th>TempoToken</th>
+				</tr>
+			</thead>
+			<tbody>
+<!-- Row 14 -->
+<tr>
+	<td>It is daytime and there are many trees in the back. A shot of a large black gun being fired. Two
+        light-skinned men in green uniforms stand next to the gun. There is white text that reads...
+    </td>
+    <td><video controls>
+            <source
+                src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00009_s0000004.tar_bVPLdRReUZ8_000_split_00000_6fps.mp4"
+                type="video/mp4">
+        </video></td>
+    <td><video controls>
+            <source
+                src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00009_s0000004.tar_bVPLdRReUZ8_000_split_00000_6fps.mp4"
+                type="video/mp4">
+        </video></td>
+
+
+    <td>In the background is a wooden table with a wooden board on it, on the left is a wooden chair, on
+        the right is a wooden cabinet. A white-skinned man is holding a gray planer and planing...</td>
+    <td><video controls>
+            <source
+                src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00018_s0000010.tar_nwDTH1ggAzM_000_split_00000_6fps.mp4"
+                type="video/mp4">
+        </video></td>
+    <td><video controls>
+            <source
+                src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00018_s0000010.tar_nwDTH1ggAzM_000_split_00000_6fps.mp4"
+                type="video/mp4">
+        </video></td>
+</tr>
+
+<!-- Row 27 -->
+<!-- <tr>
+    <td>It is daytime and there is a blue sky, a building, and a desert in the back. A shot of a group
+        of soldiers firing a large gun. They all wear a green uniform.</td>
+    <td><video controls>
+            <source
+                src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00054_s0000003.tar_JNDvDfDQnJQ_000_split_00000_6fps.mp4"
+                type="video/mp4">
+        </video></td>
+    <td><video controls>
+            <source
+                src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00054_s0000003.tar_JNDvDfDQnJQ_000_split_00000_6fps.mp4"
+                type="video/mp4">
+        </video></td>
+    <td>A low-angle full shot from a static camera. It is nighttime with a dark sky. A firework is
+        bursting in the sky. There is a white text "C1625G Hoblicky" on the left bottom.</td>
+    <td><video controls>
+            <source
+                src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00058_s0000003.tar_VPDp2IiNgG4_001_split_00000_6fps.mp4"
+                type="video/mp4">
+        </video></td>
+    <td><video controls>
+            <source
+                src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00058_s0000003.tar_VPDp2IiNgG4_001_split_00000_6fps.mp4"
+                type="video/mp4">
+        </video></td>
+</tr> -->
+
+<!-- Row 5 -->
+<tr>
+    <td>A well-lit room with a gray floor and a gray wall. There is a gray metal door on the left side
+        of the wall. There is a white rectangular...</td>
+    <td><video controls>
+            <source
+                src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00004_s0000008.tar_48IaPUBNCmE_000_split_00000_6fps.mp4"
+                type="video/mp4">
+        </video></td>
+    <td><video controls>
+            <source
+                src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00004_s0000008.tar_48IaPUBNCmE_000_split_00000_6fps.mp4"
+                type="video/mp4">
+        </video></td>
+    <td>A room with a gray floor, a gray wall, and a blue door. There is a brown box on the floor. A
+        light-skinned man in a black T-shirt, gray pants, and white gloves is...</td>
+    <td><video controls>
+            <source
+                src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00004_s0000011.tar_wm_bATyq_UE_000_split_00000_6fps.mp4"
+                type="video/mp4">
+        </video></td>
+    <td><video controls>
+            <source
+                src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00004_s0000011.tar_wm_bATyq_UE_000_split_00000_6fps.mp4"
+                type="video/mp4">
+        </video></td>
+</tr>
+
+<!-- Row 7 -->
+<tr>
+    <td>A room with white walls and a green floor. There is a black and orange printer with a black and
+        gray print head. The printer prints a picture on...</td>
+    <td><video controls>
+            <source
+                src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00007_s0000006.tar_cR2v9wArDy8_000_split_00000_6fps.mp4"
+                type="video/mp4">
+        </video></td>
+    <td><video controls>
+            <source
+                src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00007_s0000006.tar_cR2v9wArDy8_000_split_00000_6fps.mp4"
+                type="video/mp4">
+        </video></td>
+	    <td>The background is black. A firework is launched into the sky.</td>
+    <td><video controls>
+            <source
+                src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00018_s0000008.tar_7Z3hCRtHUek_000_split_00000_6fps.mp4"
+                type="video/mp4">
+        </video></td>
+    <td><video controls>
+            <source
+                src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00018_s0000008.tar_7Z3hCRtHUek_000_split_00000_6fps.mp4"
+                type="video/mp4">
+        </video></td>
+</tr>
+
+
+	<!-- Row 1 -->
+				<tr>
+					<td style="font-size: 16px; width:15%">The camera zooms out and tilts down. A well-lit room with a
+						white wall and a brown table. A white sewing machine with a red thread on the table.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000004.tar_rsUjTYDdVhE_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000004.tar_rsUjTYDdVhE_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td style="font-size: 16px; width:15%">The camera tilts up and down and pans to the left and right.
+						It is nighttime and there is a dark sky. There are several fireworks in the sky.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00001_s0000003.tar_mKYvf1p1-pY_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00001_s0000003.tar_mKYvf1p1-pY_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 2 -->
+				<tr>
+					<td> There is a dark room with blue lights. A light-skinned man with short dark hair plays the
+						drums. He wears a white tank top and dark pants.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00001_s0000005.tar_sUl_UA5V1XM_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00001_s0000005.tar_sUl_UA5V1XM_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>It is a sunny day. There is a street with gray buildings, gray ground, and green trees. A video
+						game....</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00003_s0000005.tar_H_rXDqxshvc_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00003_s0000005.tar_H_rXDqxshvc_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 3 -->
+				<tr>
+					<td> There is a green lawn with trees and bushes in the daytime and clear weather. A white man
+						shoots a black rifle. He wears a black cap, a green T-shirt, and beige pants.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00003_s0000011.tar_7kMsFD1Uju4_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00003_s0000011.tar_7kMsFD1Uju4_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>There is a gym with white and blue walls, a blue floor, a black punching bag, a black speaker, a
+						black and red exercise machine, and a brown staircase. A light-skinned...</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00003_s0000011.tar_rO-Do6tPc2Y_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00003_s0000011.tar_rO-Do6tPc2Y_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+
+				<!-- Row 4 -->
+				<tr>
+					<td>A room with white walls, a brown door, a brown cabinet, a black chair, a brown table with a
+						metal can, and a brown barrel. A light-skinned man with short black hair, wearing..</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00004_s0000003.tar_ZaeoBu4SHFE_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00004_s0000003.tar_ZaeoBu4SHFE_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>There is a red fabric in the background. The room is bright. A light-skinned person holds a
+						golden bowl in his hand.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00004_s0000003.tar_zO28GhXDiHk_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00004_s0000003.tar_zO28GhXDiHk_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+
+				<!-- Row 6 -->
+				<tr>
+					<td>A black wall and a brown carpet with a black pattern. A light-skinned man with short black hair
+						in blue jeans plays a drum kit. In the upper right corner is...</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00005_s0000003.tar_0qXzDYzQg74_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00005_s0000003.tar_0qXzDYzQg74_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>It is a well-lit room with a white wall and a gray floor. On the left is a black door. A
+						light-skinned man in a black T-shirt and black pants is standing in front of a black table...
+					</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00007_s0000006.tar_9pQLPCYBErk_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00007_s0000006.tar_9pQLPCYBErk_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+
+				<!-- Row 8 -->
+				<tr>
+					<td>A dark night sky with a bright moon on the left. A firework is launched into the sky and
+						explodes with yellow and red sparks. In the lower right corner is a red and blue logo...</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00010_s0000005.tar_4SHm6lbVxic_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00010_s0000005.tar_4SHm6lbVxic_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>There is a room with white walls, a white clock, a black bag, and a plastic container. A
+						light-skinned man with gray hair and a beard is wearing a yellow T-shirt and glasses...</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00010_s0000006.tar_FemvwHjqT0E_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00010_s0000006.tar_FemvwHjqT0E_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 9 -->
+				<tr>
+					<td>There is a dark room with a black curtain and a black floor. There is a drum set with a black
+						chair in front of it. A light-skinned man with short black hair and a beard, wearing...</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00011_s0000009.tar_Bk66lW-CHWA_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00011_s0000009.tar_Bk66lW-CHWA_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>It is a well-lit room with a gray floor and a brown wooden wall. There is a gray metal table
+						with a white wooden board on it. A person in black gloves and a black...</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00011_s0000009.tar_UT5xeO7ZCfw_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00011_s0000009.tar_UT5xeO7ZCfw_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 10 -->
+				<tr>
+					<td> A room with white walls, a brown floor, a brown wooden chest of drawers, a brown wooden chair,
+						a black bicycle, a gray carpet...</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00012_s0000011.tar_ek3oytOxAus_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00012_s0000011.tar_ek3oytOxAus_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>There is a night sky and a snowy field. There are several trees on the left. There are several
+						yellow lights in the distance.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00013_s0000003.tar_JLFwqEem5Zo_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00013_s0000003.tar_JLFwqEem5Zo_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Add more rows as needed -->
+
+				<!-- Row 11 -->
+				<tr>
+					<td>There is a blurred room with a beige wall, a beige table with a white scale, and a lot of
+						different things. There is a metal xylophone with two beige balls. A light-skinned man...</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00013_s0000003.tar_i24N22RM-XM_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00013_s0000003.tar_i24N22RM-XM_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>A kitchen with a white wall and a black countertop. There is a white and purple box on the
+						countertop. A silver blender with a transparent...</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00016_s0000004.tar_h4Q6yJGEu6E_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00016_s0000004.tar_h4Q6yJGEu6E_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 12 -->
+				<tr>
+					<td> There is a green forest in the background. It's a sunny day. A person in black rubber boots and
+						black pants walks along a stream.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00017_s0000004.tar_1vOU8_NI8l0_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00017_s0000004.tar_1vOU8_NI8l0_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>A room with a brown floor, a brown door, and a brown wall. A white-skinned person in a black
+						T-shirt turns on a black blender with a transparent bowl with a brown smoothie inside.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00017_s0000006.tar_bCOePJHiFRk_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00017_s0000006.tar_bCOePJHiFRk_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 13 -->
+				<tr>
+					<td>A dark sky at night. A crowd of people is gathered around a firework display, with some
+						individuals holding up red flags.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00017_s0000008.tar_O9gmnHd1szk_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00017_s0000008.tar_O9gmnHd1szk_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td> There is a field with green and yellow grass, and trees in the background. It is daytime with a
+						white sky. A light-skinned man is sitting on the left side of the frame, holding a black
+						rifle...</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00017_s0000008.tar_sdTapss9gKg_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00017_s0000008.tar_sdTapss9gKg_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+
+				<!-- Row 15 -->
+				<tr>
+					<td>A poorly lit room with a gray carpet and a brown wooden table. A beige dog with a black collar
+						is lying under the table, then it gets up and runs to the left.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00019_s0000008.tar__wW3yhOLdlM_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00019_s0000008.tar__wW3yhOLdlM_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>A well-lit room with a brown floor and a brown sofa. A light-skinned man in an orange T-shirt
+						and blue jeans sits on a sofa and holds a white phone in his right hand. In his left hand, he
+						holds...</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00021_s0000002.tar_h3cFTbRIzdY_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00021_s0000002.tar_h3cFTbRIzdY_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 16 -->
+				<tr>
+					<td>The camera pans to the left and right, tilts down and up, and dollies forward. A bathroom with
+						blue tiles on the walls and a black floor with a yellow rug. There is a white toilet with a
+						beige lid...</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00022_s0000000.tar_C-zrsZNSG3Q_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00022_s0000000.tar_C-zrsZNSG3Q_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>A well-lit room with a gray floor and a white wall. There is a black table with a gray monitor
+						on it. There is a gray printer with a black panel on the right side. The printer prints a white
+						sheet of paper.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00022_s0000000.tar_sZVcja8VUbw_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00022_s0000000.tar_sZVcja8VUbw_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 17 -->
+				<tr>
+					<td>There is a room with black walls, a white ceiling, and a beige floor. There is a red carpet on
+						the floor. There are musical instruments and microphones in the room. There are four
+						light-skinned men in the room...</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00022_s0000008.tar_-08Q_GqDETc_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00022_s0000008.tar_-08Q_GqDETc_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>A room with a beige wall, a black speaker on the right, and a white shelf on the left. A
+						light-skinned young man with short black hair in a blue shirt plays a brown cello. There is a
+						black microphone...</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00022_s0000012.tar_-w0ZngFkQrs_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00022_s0000012.tar_-w0ZngFkQrs_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+
+				<tr>
+					<td>White surface. The #camera-operator# stirs the white sauce in a gray pot with a black spoon,
+						then places a piece of breaded meat in a black frying pan and fries it...</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00023_s0000007.tar_uSd5IKqaUpw_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00023_s0000007.tar_uSd5IKqaUpw_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>The camera pans to the right and left. It is nighttime and there is a crowd of people. There is
+						a view of the Eiffel Tower. The camera films fireworks exploding in the sky.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00023_s0000011.tar_PYqWeH9iQZU_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00023_s0000011.tar_PYqWeH9iQZU_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 19 -->
+				<tr>
+					<td>It is daytime and there are red plants and a white building in the back. A dark-skinned man
+						talks and gestures with his hands. He has long gray hair, a beard, and a white shirt.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00024_s0000000.tar_KaL17J_SMzo_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00024_s0000000.tar_KaL17J_SMzo_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>A gray concrete floor in the daytime. A black cauldron with a black handle and a black metal
+						frame on the bottom stands on the floor. The cauldron is filled with boiling oil..</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00026_s0000008.tar_atkiN9vlt80_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00026_s0000008.tar_atkiN9vlt80_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 20 -->
+				<tr>
+					<td>A forest with many trees with green leaves on a sunny day. A man in a yellow helmet, green
+						headphones, a red and green jacket, and red pants cuts down a tree with a chainsaw...</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00027_s0000008.tar_qtRSll0iLIE_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00027_s0000008.tar_qtRSll0iLIE_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>The video has a slow-motion effect. There is a room with gray walls and a large panoramic
+						window. Outside the window is a street with...</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00029_s0000006.tar_UB1gpCwMM9A_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00029_s0000006.tar_UB1gpCwMM9A_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 21 -->
+				<tr>
+					<td>A brown ground with a blue tarpaulin on it. Behind the ground is a brown hill. It is daytime and
+						sunny outside. A light-skinned man is lying on a blue tarpaulin and shooting a black rifle...
+					</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00030_s0000003.tar_qBLiT_0wwM4_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00030_s0000003.tar_qBLiT_0wwM4_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>A blue surface. The room is lit. A white printer with a black surface inside. The printer prints
+						a white sheet of paper.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00030_s0000010.tar_LQyDjE3mt2c_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00030_s0000010.tar_LQyDjE3mt2c_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 22 -->
+				<tr>
+					<td>There is a room with a brown wooden floor, a white wall, a brown door, and a pair of black shoes
+						on the right. A green parrot with a red head and blue tail is walking around the room.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00031_s0000005.tar_v67pxEe9tnI_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00031_s0000005.tar_v67pxEe9tnI_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>The camera pans to the left and right, dollies forward, and tilts up and down. A dark room with
+						gray walls, a gray floor, and a gray ceiling. There are gray boxes and a gray door in the room.
+						The #camera-operator# is holding a gray gun...</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00035_s0000006.tar_dw5BG6sCQnA_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00035_s0000006.tar_dw5BG6sCQnA_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 23 -->
+				<tr>
+					<td>The camera tilts up and pans to the left. A gray concrete area surrounded by a gray fence with a
+						black mesh. Behind the fence are green trees and bushes. It is a sunny day outside. A black and
+						white dog..</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00035_s0000007.tar_Gr6E7pRVS6I_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00035_s0000007.tar_Gr6E7pRVS6I_001_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>There is a black background. There is a fireworks display in the center. There is a logo on the
+						bottom left reading "BIRTHDAY" in red and "SHOPS" in blue. There is a logo on the bottom right
+						reading "PARTY SHOTS" in yellow.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00036_s0000000.tar_DeXYmk7iFoo_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00036_s0000000.tar_DeXYmk7iFoo_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 24 -->
+				<tr>
+					<td>A white table with a metal hinge on the right. A light-skinned man screws a bolt into a red
+						metal part with a metal wrench.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00043_s0000005.tar_bUxoCOhBVO4_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00043_s0000005.tar_bUxoCOhBVO4_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>A sea with waves and a rocky shore. A light-skinned young woman with dark hair, wearing a gray
+						T-shirt, a brown necklace, and a brown stick in her right hand, smiles and looks at the camera.
+					</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00047_s0000010.tar_J9hb_jBQn_I_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00047_s0000010.tar_J9hb_jBQn_I_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+				<!-- Row 25 -->
+				<tr>
+					<td>There is a street with a green lawn, green trees, and a road. It's a sunny day. A light-skinned
+						man with brown hair is playing with a skipping rope. He is wearing a black T-shirt and black
+						shorts.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00048_s0000003.tar_q8VTIhxU5hc_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00048_s0000003.tar_q8VTIhxU5hc_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					
+						<td>There is a forest with dry grass and trees without leaves. It's a day. There is a lioness lying
+							on the ground and yawning.</td>
+						<td><video controls>
+								<source
+									src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00058_s0000012.tar_3HSRX24Nj4Q_000_split_00000_6fps.mp4"
+									type="video/mp4">
+							</video></td>
+						<td><video controls>
+								<source
+									src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00058_s0000012.tar_3HSRX24Nj4Q_000_split_00000_6fps.mp4"
+									type="video/mp4">
+							</video></td>
+						
+				</tr>
+				<!-- Row 26 -->
+				<tr>
+					<td>A room with a white wall and a green table. There is a black speaker on the table. The room is
+						lit. A light-skinned man is eating noodles from a red bowl. The man has brown hair and a brown
+						mustache. He is wearing brown glasses and a black sweatshirt.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00048_s0000005.tar_gimu_XYwHLM_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00048_s0000005.tar_gimu_XYwHLM_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td>The camera shakes. It is a sunny day and there is a shooting range with a brown fence, a gray
+						floor, and a gray roof. A light-skinned person in a black T-shirt holds a black and white gun in
+						their hands and shoots at a target.</td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/Ours/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00051_s0000007.tar_xtbZYi_gjXo_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+					<td><video controls>
+							<source
+								src="data/audio_to_video/upsampled_w_prompt/TempoToken/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00051_s0000007.tar_xtbZYi_gjXo_000_split_00000_6fps.mp4"
+								type="video/mp4">
+						</video></td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+
+
+
+    <div class="container pt-5" id="A2V_additional_results_w_prompt"> </div>
+	<div class="container pt-5" style="margin-top: 3%;">
+		<div class="content has-text-justified">
+			<h2 class="title is-3">Additional Qualitative Results</h2>
+			<p>We include additional generated videos of our model based on the audio and input video text prompt.</p>
+		</div>
+	</div>
+
+	<div class="video-gallery">
+		<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+			<tbody>
+								<!-- Row 12 -->
+								<tr> 
+									<td>
+										<video controls width="256" height="144">
+											<source
+												src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00035_s0000000.tar_w4A7YeO82Hw_000_split_00000.mp4"
+												type="video/mp4">
+											Your browser does not support the video tag.
+										</video>
+									</td>
+									<td>
+										<video controls width="256" height="144">
+											<source
+												src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00059_s0000006.tar_je6jJoTbFWs_000_split_00000.mp4"
+												type="video/mp4">
+											Your browser does not support the video tag.
+										</video>
+									</td>
+									<td>
+										<video controls width="256" height="144">
+											<source
+												src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00036_s0000004.tar_OZk7zLHtTfU_001_split_00000.mp4"
+												type="video/mp4">
+											Your browser does not support the video tag.
+										</video>
+									</td>
+									<td>
+										<video controls width="256" height="144">
+											<source
+												src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00036_s0000007.tar_Xk3qb9ccN7c_000_split_00000.mp4"
+												type="video/mp4">
+											Your browser does not support the video tag.
+										</video>
+									</td>
+									<td>
+										<video controls width="256" height="144">
+											<source
+												src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00037_s0000003.tar_XWINmSdr0fU_000_split_00000.mp4"
+												type="video/mp4">
+											Your browser does not support the video tag.
+										</video>
+									</td>
+									<td>
+										<video controls width="256" height="144">
+											<source
+												src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00038_s0000001.tar_DnIIWmhDMV8_000_split_00000.mp4"
+												type="video/mp4">
+											Your browser does not support the video tag.
+										</video>
+									</td>
+								</tr>
+				<!-- Row 11 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00019_s0000009.tar_0U_4GIy891k_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00031_s0000001.tar_VFeHrwDD80A_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00032_s0000005.tar_20lD2IKCYLE_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00033_s0000003.tar_XEfuHe0lFb0_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00035_s0000000.tar_-WNELSjjnJc_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00035_s0000000.tar_0QbbhhMU2Z0_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 1 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000002.tar_maTyDEZO58w_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000004.tar_7iv2SWcqGJo_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000005.tar_wHIjOdMc00k_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000007.tar_DcLtoccyNpI_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000007.tar_UC2lXx-5YFI_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000007.tar_UrKimFbYAwc_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 2 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000007.tar_nNbI-kSSeTg_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000007.tar_s4QPhe05VU4_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00000_s0000012.tar_2RkDezD3hMw_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00001_s0000010.tar_Alg4Fk0iWIs_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00001_s0000010.tar_BUZyO8j8y5k_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00002_s0000004.tar_GQIn85GT1MI_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 3 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00002_s0000012.tar_xfthfH6KGpA_001_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00058_s0000012.tar_eQ8CMCLS5rY_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00003_s0000000.tar_hOwxu29shC8_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00003_s0000005.tar_FuWDfaQjbvs_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00003_s0000005.tar_Q-Pxy9DgwrQ_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00003_s0000005.tar_dHGHii7uzGs_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+
+				<!-- Row 4 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00003_s0000007.tar_0Pw3OAXHNLM_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00003_s0000007.tar_cETwkA4M_7Q_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00004_s0000000.tar_geFkIhLY8uY_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00004_s0000001.tar_iZXJa54zPGY_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00005_s0000007.tar_K6jl5hBd1Vg_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00005_s0000012.tar_LwdZFo0yVeY_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 5 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00005_s0000012.tar_eosBaG7RjZ4_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00005_s0000012.tar_opjVpERArV4_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00006_s0000009.tar_MCNLP7g5NQg_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00006_s0000010.tar_-TIr4yEY89k_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000000.tar_3EDVI-yzHuA_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000000.tar_AZK8IQuPk-4_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+
+				<!-- Row 6 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000001.tar_GFgEUBlTNzw_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000001.tar_SJXrTtzbUIg_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00059_s0000005.tar_rPa9mZsprbw_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000001.tar_s0o9ZeaF5ZI_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000002.tar_7uOf0j0P8HU_001_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000002.tar_C5Ge3-VJ3kk_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 7 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000002.tar_IINqN6L2NsY_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000004.tar_u45ds9-wWYU_001_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000011.tar_KfJ7q4EEebY_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000011.tar_O2GHoOj4alk_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00008_s0000012.tar_vh3mNcg8Jw8_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00009_s0000005.tar_53CkJPWzclE_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 8 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00009_s0000008.tar__yhAPqBCWJs_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00009_s0000010.tar_0-KeN5sfo-M_001_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00009_s0000010.tar_v3XbJ3p1jco_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00010_s0000007.tar_8kekGAzvdlc_001_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00010_s0000012.tar_r4YHQSzdBPE_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00010_s0000012.tar_xrOBIM_vE0c_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+
+				<!-- Row 9 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00012_s0000000.tar_ih7g1UFPtIw_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00012_s0000011.tar__klUrw_uf70_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00013_s0000001.tar_3BJCaTuG8bE_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00013_s0000011.tar_cCxkwzHlH7U_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00014_s0000002.tar_sYj4hpDUZDQ_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00015_s0000006.tar_0XsmNbj0RQ8_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 10 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00015_s0000008.tar_hb9i-cmm21k_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00016_s0000002.tar_NmrQlhq0SDw_001_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00016_s0000002.tar_u2Adz6cdDzs_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00016_s0000011.tar_7YXXP53yOQ4_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00016_s0000011.tar_93MsxAGvS50_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00019_s0000005.tar_V1bb9hZQ40Q_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+
+
+
+				<!-- Row 13 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00038_s0000001.tar_Y_KD0BA2x58_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00038_s0000003.tar_-2D-DycYR14_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00039_s0000011.tar_MZ9Wtffp06M_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00041_s0000008.tar_Q31iu7DauMA_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00042_s0000002.tar_jmZirstohnU_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00042_s0000008.tar_w2vMywh5Nto_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 14 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00042_s0000010.tar_hIz2RUNi5sc_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00043_s0000003.tar_bZYpQ6pAHmY_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00043_s0000003.tar_sN8fi0FN8WI_001_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00043_s0000004.tar_-9HoMjD6Opk_001_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00043_s0000005.tar_KBN_Lo28Giw_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00043_s0000005.tar_bUxoCOhBVO4_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+
+				<!-- Row 15 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00043_s0000009.tar_LxYCCBN7xTU_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00043_s0000011.tar_a1Mc5TXDn8M_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00043_s0000011.tar_opxGmpKOiE4_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00044_s0000000.tar_LFOA_mphwHY_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00044_s0000000.tar_n-ROp_0N70A_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00045_s0000001.tar_UDiRuGO_vDg_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 16 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00045_s0000001.tar_VnarX9slmQg_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00045_s0000002.tar_bgCC1xTEBTs_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00049_s0000006.tar_IyxiRouLzh4_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00049_s0000010.tar_c0jnBzvRkHs_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00050_s0000006.tar_jFRUhDUN4gM_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00052_s0000007.tar_Pm1uw5-lV-I_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Row 17 -->
+				<tr>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00055_s0000007.tar_iAhwjk4p77g_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00058_s0000001.tar_LTK_x_t6mZE_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00058_s0000001.tar_i4KWON16vDI_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00058_s0000008.tar_3LBn3tHuNkg_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00058_s0000008.tar_OyoMr0zI3Hk_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source
+								src="data/audio_to_video/uncurated_w_prompt/vggsounds_shuffled_webdataset_dataset_X-webdataset-audios_vggsound_audioset_autocap_reencoded_n00000_t00058_s0000008.tar_l4yndc3v8Hw_000_split_00000.mp4"
+								type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+
+
+				<!-- Add additional rows here for remaining videos -->
+			</tbody>
+		</table>
+	</div>
+
+
+
+
+</body>
+
+</html>

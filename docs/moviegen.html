@@ -1,0 +1,1554 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link href="resources/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="./resources/bulma.min.css">
+	<link rel="stylesheet" href="./resources/bulma-carousel.min.css">
+	<link rel="stylesheet" href="./resources/bulma-slider.min.css">
+	<link rel="stylesheet" href="./resources/fontawesome.all.min.css">
+	<link rel="stylesheet" href="./resources/index.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script defer src="./resources/fontawesome.all.min.js"></script>
+	<script src="./resources/bulma-carousel.min.js"></script>
+	<script src="./resources/bulma-slider.min.js"></script>
+	<script src="./resources/index.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			// Loop through all tables on the page
+			document.querySelectorAll('table').forEach(table => {
+				// Find the "Ours" column in the header
+				const headerCells = table.querySelectorAll('thead th');
+				headerCells.forEach((cell, index) => {
+					if (cell.textContent.trim() === 'Ours') {
+						// Highlight the column dynamically
+						const columnIndex = index + 1; // Column index (1-based for nth-child)
+						table.querySelectorAll(`thead th:nth-child(${columnIndex}), tbody td:nth-child(${columnIndex})`)
+							.forEach(colCell => {
+								colCell.style.backgroundColor = '#e0f7fa';
+								colCell.style.color = '#0288d1';
+								colCell.style.fontWeight = 'bold';
+							});
+					}
+				});
+			});
+		});
+		
+	</script>
+	
+	<title>AV-Link</title>
+
+	<style>
+		video {
+			object-fit: cover;
+		}
+
+		.video-gallery {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 20px;
+			padding: 20px;
+			max-width: 1600px;
+			margin: auto;
+			overflow: visible; /* Ensure sticky works */
+		}
+
+		.video-item {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background-color: #f0f0f0;
+			padding: 15px;
+			border-radius: 8px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}
+
+		.video-gallery video {
+			width: 256;
+			height: 144;
+			border-radius: 8px;
+		}
+
+		.video-item video {
+			width: 256;
+			height: 144;
+			border-radius: 8px;
+		}
+
+		.video-caption {
+			margin-top: 10px;
+			font-size: 16px;
+			color: #333;
+			text-align: center;
+		}
+
+
+		.video-item {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background-color: #f7f7f7;
+			/* Light gray for subtle contrast */
+			padding: 15px;
+			border-radius: 8px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			overflow: hidden;
+			/* Ensures content stays inside the box */
+		}
+
+		.video-item video {
+			width: 100%;
+			/* Make the video span the full width */
+			height: auto;
+			/* Maintain aspect ratio */
+			border-radius: 8px 8px 0 0;
+			/* Rounded corners for the top */
+		}
+
+		.video-prompt {
+			width: 100%;
+			margin-top: 0;
+			padding: 10px 15px;
+			background-color: #e0e0e0;
+			/* Subtle gray background for contrast */
+			font-size: 1rem;
+			font-family: 'Roboto', Arial, sans-serif;
+			color: #333;
+			/* Darker text for readability */
+			text-align: center;
+			border-radius: 0 0 8px 8px;
+			/* Matches the box's bottom corners */
+		}
+
+
+		.navbar {
+			position: fixed;
+			top: 0;
+			width: 100%;
+			background: linear-gradient(90deg, #e8f402, #0546ea);
+			padding: 1rem 2rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+			font-family: 'Arial', sans-serif;
+			color: white;
+			z-index: 1000;
+		}
+		
+		/* Left Section (Logo + Brand Name) */
+		.navbar-left {
+			display: flex;
+			align-items: center;
+		}
+		
+		.navbar-logo {
+			height: 50px;
+			/* Logo size */
+			width: 100px;
+			/* Keep it square */
+			margin-right: 1rem;
+			/* Space between logo and brand */
+			border-radius: 10%;
+			/* Slightly rounded logo */
+		}
+
+		
+		.navbar-brand {
+			font-size: 1.8rem;
+			font-weight: bold;
+			text-transform: uppercase;
+			letter-spacing: 1.5px;
+			color: rgb(2, 35, 219);
+		}
+		
+		/* Right Section (Links) */
+		.navbar-right {
+			display: flex;
+			align-items: center;
+			margin-right: 20px; /* Added margin to the right */
+		}
+		
+		/* Navbar Links and Dropdown Buttons */
+		.navbar-right a,
+		.navbar-right .dropbtn {
+			color: #f2f2f2;
+			text-decoration: none;
+			font-size: 1.2rem; /* Increased font size */
+			margin-left: 1.5rem;
+			padding: 0.5rem 1rem;
+			border-radius: 5px;
+			position: relative;
+			cursor: pointer;
+			transition: all 0.3s ease-in-out;
+		}
+		
+		/* Add a caret indicator for dropdowns */
+		.dropbtn::after {
+			content: ' ▼';
+			font-size: 0.8rem;
+			margin-left: 0.3rem;
+		}
+		
+		/* Hover effects for links and dropdown buttons */
+		.navbar-right a:hover,
+		.dropdown:hover .dropbtn {
+			background-color: rgba(255, 255, 255, 0.2);
+			color: #000;
+		}
+		
+		/* Dropdown Container */
+		.dropdown {
+			position: relative;
+			display: inline-block;
+		}
+		
+		/* Dropdown Content */
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: #fff; /* Changed to white for better contrast */
+			min-width: 200px;
+			box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+			border-radius: 5px;
+			padding: 0.5rem 0;
+			z-index: 1000;
+			top: 100%; /* Position it directly below the parent */
+			left: 0;
+		}
+		
+		/* Dropdown Links */
+		.dropdown-content a {
+			color: #000;
+			padding: 0.5rem 1.5rem;
+			text-decoration: none;
+			display: block;
+			font-size: 1rem;
+		}
+		
+		/* Show Dropdown on Hover */
+		.dropdown:hover .dropdown-content {
+			display: block;
+		}
+		
+		/* Dropdown Item Hover Effect */
+		.dropdown-content a:hover {
+			background-color: rgba(0, 0, 0, 0.1);
+		}
+		
+		/* Remove Margin from Last Navbar Item */
+		.navbar-right a:last-child {
+			margin-right: 0;
+		}
+		
+		/* Optional: Improve Navbar Responsiveness */
+		@media (max-width: 768px) {
+			.navbar {
+				flex-direction: column;
+				padding: 1rem;
+			}
+			.navbar-right {
+				flex-direction: column;
+				align-items: flex-start;
+				margin-right: 0;
+			}
+			.navbar-right a,
+			.navbar-right .dropbtn {
+				margin: 0.5rem 0;
+			}
+		}
+
+		/* Leave Space Below Navbar */
+		body {
+			padding-top: 80px;
+			/* Leave space for the navbar (adjust based on navbar height) */
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		#loading-bar {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 0%;
+			height: 4px;
+			background-color: #29d;
+			z-index: 9999;
+			transition: width 0.4s ease;
+		}
+
+		table thead th {
+			position: sticky;
+			top: 0;
+			background-color: white;
+			z-index: 1;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		
+		table thead th {
+			position: sticky;
+			top: 80px; /* Account for navbar height */
+			background-color: white;
+			z-index: 2;
+			box-sizing: border-box;
+			padding: 10px; /* Ensure padding does not interfere */
+		}
+
+		thead th {
+			background-color: #f7f7f7; /* Light background for header */
+			font-weight: bold;
+		}
+
+		.video-gallery {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 20px;
+			padding: 20px;
+			max-width: 1600px;
+			margin: auto;
+			overflow: visible; /* Ensure sticky works */
+		}
+
+		body {
+			overflow-x: visible;
+		}
+
+		th.our-method {
+			background-color: #e0f7fa; /* Light teal background */
+			color: #0288d1;           /* Text color */
+			font-weight: bold;        /* Make text bold */
+			border: 2px solid #0288d1;
+		}
+		
+
+	</style>
+
+
+</head>
+
+<body>
+	<div class="navbar">
+		<div class="navbar-left">
+			<a href="index.html">
+			<img src="resources/logo.png" alt="Logo" class="navbar-logo">
+			</a>
+			<a href="index.html">
+			<span class="navbar-brand">AV-Link</span>
+		</a>
+			
+		</div>
+		<div class="navbar-right">
+
+			<!-- Video-to-Audio Dropdown -->
+			<p class="additional-results">Additional Results:</p>
+			<div class="dropdown">
+				<span class="dropbtn">Video-to-Audio</span>
+				<div class="dropdown-content">
+					<a href="in_the_wild.html#A2V_lab_recorded">Real-world Examples</a>
+					<a href="control_w_prompt.html#V2A_various_prompts">Control Audio with Text Prompt</a>
+					<a href="moviegen.html#A2V_moviegen_wo_prompt">Movie Gen Benchmark</a>
+				</div>
+			</div>
+			
+			<!-- Audio-to-Video Dropdown -->
+			<div class="dropdown">
+				<span class="dropbtn">Audio-to-Video</span>
+				<div class="dropdown-content">
+					<a href="a2v_w_prompt.html#A2V_upscaled_w_prompt">With Text Prompt</a>
+					<a href="a2v_wo_prompt.html#A2V_upscaled_wo_prompt">Without Text Prompt</a>
+				</div>
+			</div>
+			
+
+
+
+		</div>
+	</div>
+
+	
+	<section class="jumbotron text-center" style="padding-top: 10%;">
+		<h1 class="publication-title">AV-Link: Temporally-Aligned Diffusion Features for Cross-Modal Audio-Video
+			Generation</h1>
+		<br />
+
+		<div class="is-size-5 publication-authors">
+			<span class="author-block">
+				<p class="author">
+					<span class="author"><a target="_blank" href="https://moayedha.com/">Moayed
+							Haji-Ali,</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href=https://www.willimenapace.com>Willi
+							Menapace,</a>&nbsp;</span>
+					<span class="author"><a target="_blank"
+							href=https://aliaksandrsiarohin.github.io/aliaksandr-siarohin-website/>Aliaksandr
+						Siarohin,</a>&nbsp;</span>
+					
+					<span class="author"><a target="_blank"
+							href=https://universome.github.io> Ivan Skorokhodov,</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href=https://alpercanberk.github.io/>Alper Canberk,</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href=https://www.linkedin.com/in/kwotsin>Kwot Sin Lee,</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href="https://vislang.ai/">Vicente Ordonez</a>&nbsp;</span>
+					<span class="author"><a target="_blank" href=http://www.stulyakov.com>Sergey
+							Tulyakov,</a>&nbsp;</span>
+					
+				</p>
+				<span class="author-block">
+		</div>
+		<div class="collabs" , align-items="center">
+			<img class="rice-icon" src="./assets/logos/rice.svg" alt="Rice University Logo" , height="10px">
+			<div class="snap">
+				<img src="./assets/logos/snap.png" alt="Snap Research Logo">
+				<span>Snap Research</span>
+			</div>
+		</div>
+	
+		<div class="resources", style="padding-top: 2%;">
+
+			<div class="resource-item">
+			  <a  class="paper-btn resource-text" href="#">
+			  <!-- <img src="./assets/icons/arxiv-logo.png" alt="Paper" class="resource-icon"> -->
+			  Research Paper 
+			  </a>
+			</div>
+			<div class="resource-item">
+			  <a  class="paper-btn  resource-text" href="#">
+			  <!-- <img src="./assets/icons/github-mark.png" alt="Code" class="resource-icon"> -->
+			  Github
+			  </a>
+			</div>
+			
+			
+		  </div>
+	</section>
+
+
+	<div class="container pt-5" id="A2V_moviegen_wo_prompt"> </div>
+	<div class="container pt-5" style="margin-top: 3%;">
+		<div class="content has-text-justified">
+            <h2 class="title is-3">Baseline Comparison on Video-to-Audio Meta Movie Gen Benchmark without Text Prompts</h2>
+            <p><b>Task Description:</b> We evaluate our method against baselines on the newly released Movie Gen
+ Benchmark that contains AI-generated videos. <b>Input:</b> video → audio.</p>
+            <p><b>Baselines:</b> We compare our method with state-of-the-art approaches: FoleyCrafter, Diff-Foley, and
+ Frieren. We also include Movie Gen released videos that were generated with text prompts. We observe
+ that all baselines lack precise temporal alignment. All videos are downsampled and cropped to 5s for
+ consistency.</p>
+            <p><b>Dataset:</b> Movie Gen Benchmark is a recently released benchmark by Meta featuring AI-generated
+ videos. From the 527 released videos, we select those that display distinct temporal actions.</p>
+        </div>
+	</div>
+
+	<div class="video-gallery">
+		<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+			<thead>
+				<tr>
+					<th>Video ID</th>
+					<th  class="our-method">Ours</th>
+					<th>MovieGen w/ prompt</th>
+					<th>FoleyCrafter</th>
+					<th>Diff-foley</th>
+					<th>Frieren</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Start looping over video IDs -->
+				<tr>
+					<td>320</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours/320.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen/320.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter/320.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Diff-foley/320.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Frieren/320.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>117</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours/117.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen/117.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter/117.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Diff-foley/117.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Frieren/117.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>57</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours/57.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen/57.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter/57.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Diff-foley/57.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Frieren/57.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>16</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours/16.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen/16.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter/16.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Diff-foley/16.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Frieren/16.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>28</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours/28.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen/28.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter/28.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Diff-foley/28.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Frieren/28.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>30</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours/30.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen/30.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter/30.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Diff-foley/30.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Frieren/30.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+
+				<tr>
+					<td>39</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours/39.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen/39.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter/39.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Diff-foley/39.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Frieren/39.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>61</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours/61.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen/61.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter/61.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Diff-foley/61.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Frieren/61.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>100</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours/100.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen/100.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter/100.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Diff-foley/100.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Frieren/100.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+
+				<tr>
+					<td>240</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours/240.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen/240.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter/240.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Diff-foley/240.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Frieren/240.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>256</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours/246.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen/246.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter/246.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Diff-foley/246.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Frieren/246.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>323</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours/323.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen/323.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter/323.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Diff-foley/323.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Frieren/323.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>324</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours/324.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen/324.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter/324.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Diff-foley/324.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Frieren/324.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>355</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours/355.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen/355.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter/355.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Diff-foley/355.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Frieren/355.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>377</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours/377.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen/377.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter/377.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Diff-foley/377.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Frieren/377.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>438</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours/438.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen/438.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter/438.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Diff-foley/438.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Frieren/438.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>537</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours/537.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen/537.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter/537.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Diff-foley/537.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Frieren/537.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<!-- Repeat similar rows for all other IDs -->
+				<!-- 39, 57, 61, 100, 117, 240, 256, 320, 323, 324, 355, 377, 438, 537 -->
+			</tbody>
+		</table>
+	</div>
+
+
+
+	<div class="container pt-5" id="A2V_moviegen_w_prompt"> </div>
+	<div class="container pt-5" style="margin-top: 3%;">
+		<div class="content has-text-justified">
+            <h2 class="title is-3">Baseline Comparison on Video-to-Audio Meta Movie Gen Benchmark with Text Prompts</h2>
+            <p><b>Task Description:</b> We evaluate our method against baselines on the newly released Movie Gen
+ Benchmark that contains AI-generated videos. <b>Input:</b> video + audio text prompt → audio.</p>
+            <p><b>Baselines:</b> We compare our method with state-of-the-art approaches: Movie Gen A2V, FoleyCrafter,
+ Diff-Foley, and Seeing and Hearing. We observe that all baselines lack precise temporal alignment. All
+ videos are downsampled and cropped to 5s for consistency.</p>
+            <p><b>Dataset:</b> Movie Gen Benchmark is a recently released benchmark by Meta featuring AI-generated
+ videos. From the 527 released videos, we select those that display distinct temporal actions.</p>
+        </div>
+    </div>
+
+	<div class="video-gallery">
+		<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+			<thead>
+				<tr>
+					<th>Video ID</th>
+					<th style="width: 20%;">Text Prompt</th>
+					<th  class="our-method">Ours</th>
+					<th>MovieGen</th>
+					<th>FoleyCrafter</th>
+					<th>Seeing & Hearing</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>115</td>
+					<td>electric guitar power chords ringing out loudly and resonating.</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours_w_prompt/115.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen_w_prompt/115.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter_w_prompt/115.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/SNH_w_prompt/115.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>519</td>
+					<td>muddy splatter and sucking sounds with each step.</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours_w_prompt/519.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen_w_prompt/519.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter_w_prompt/519.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/SNH_w_prompt/519.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>56</td>
+					<td>wheels spinning rapidly and scraping against the concrete floor, and slamming sound as the
+						skateboard lands on the concrete floor.</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours_w_prompt/56.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen_w_prompt/56.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter_w_prompt/56.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/SNH_w_prompt/56.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>32</td>
+					<td>footsteps echoing loudly off the walls and floor.</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours_w_prompt/32.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen_w_prompt/32.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter_w_prompt/32.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/SNH_w_prompt/32.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>35</td>
+					<td>clip-clop of the horse's hooves hitting the ground.</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours_w_prompt/35.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen_w_prompt/35.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter_w_prompt/35.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/SNH_w_prompt/35.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>83</td>
+					<td>bubbles rising to the surface, and school of fish splashing and swimming.</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours_w_prompt/83.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen_w_prompt/83.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter_w_prompt/83.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/SNH_w_prompt/83.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>106</td>
+					<td>gurgling of coffee flowing from thermos.</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours_w_prompt/106.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen_w_prompt/106.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter_w_prompt/106.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/SNH_w_prompt/106.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>108</td>
+					<td>bright blue button clicking with a crisp, sharp sound.</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours_w_prompt/108.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen_w_prompt/108.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter_w_prompt/108.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/SNH_w_prompt/108.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>113</td>
+					<td>drums are hit with loud and intense thuds and crashes.</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours_w_prompt/113.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen_w_prompt/113.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter_w_prompt/113.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/SNH_w_prompt/113.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+
+				<tr>
+					<td>155</td>
+					<td>footsteps muffled by the carpet.</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours_w_prompt/155.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen_w_prompt/155.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter_w_prompt/155.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/SNH_w_prompt/155.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>164</td>
+					<td>footsteps crunching on dirt path.</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours_w_prompt/164.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen_w_prompt/164.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter_w_prompt/164.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/SNH_w_prompt/164.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>247</td>
+					<td>water splashing and slapping against the shore.</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours_w_prompt/247.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen_w_prompt/247.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter_w_prompt/247.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/SNH_w_prompt/247.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>279</td>
+					<td>water splashing and rippling as the bear moves through the stream.</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours_w_prompt/279.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen_w_prompt/279.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter_w_prompt/279.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/SNH_w_prompt/279.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>299</td>
+					<td>Gentle strumming of the guitar with a soaring sound.</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours_w_prompt/299.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen_w_prompt/299.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter_w_prompt/299.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/SNH_w_prompt/299.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>320</td>
+					<td>ice cracking with sharp snapping sound, and metal tool scraping against the ice surface.</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours_w_prompt/320.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen_w_prompt/320.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter_w_prompt/320.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/SNH_w_prompt/320.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>334</td>
+					<td>snow crunches and compresses under heavy footsteps.</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours_w_prompt/334.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen_w_prompt/334.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter_w_prompt/334.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/SNH_w_prompt/334.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+				<tr>
+					<td>385</td>
+					<td>Broom bristles scratch against the hardwood floor.</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/Ours_w_prompt/385.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/MovieGen_w_prompt/385.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/FoleyCrafter_w_prompt/385.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+					<td>
+						<video controls width="256" height="144">
+							<source src="data/video_to_audio/moviegen/SNH_w_prompt/385.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video>
+					</td>
+				</tr>
+
+
+				<!-- End looping over video IDs -->
+			</tbody>
+		</table>
+	</div>
+
+
+
+</body>
+
+</html>

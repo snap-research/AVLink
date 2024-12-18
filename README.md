@@ -2,9 +2,11 @@
 [![Project Page](https://img.shields.io/badge/Project-Page-green.svg)](https://snap-research.github.io/AVLink/)
 [![arXiv](https://img.shields.io/badge/arXiv-2311.18822-b31b1b)](#TODO)
 
-<video src="assets/teaser.mp4" controls>
-  Your browser does not support the video tag.
-</video>
+
+
+https://github.com/user-attachments/assets/d9bea4b9-c9b6-4f3d-9829-23c4328bb2ce
+
+
 
 
 # AV-Link: Temporally-Aligned Diffusion Features for Cross-Modal Audio-Video Generation

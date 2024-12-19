@@ -826,3 +826,19 @@ margin-top:5%;
   display: inline-block; /* Keep it in line with the dropdown menus */
   vertical-align: middle; /* Align it better with dropdowns */
 }
+
+
+footer {
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f1f1f1;
+  font-size: 14px;
+}
+footer a {
+  color: #007BFF;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}

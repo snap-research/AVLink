@@ -3,10 +3,7 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2311.18822-b31b1b)](#TODO)
 
 
-
-https://github.com/user-attachments/assets/d9bea4b9-c9b6-4f3d-9829-23c4328bb2ce
-
-
+https://github.com/user-attachments/assets/02572988-4db4-4913-b543-4c914d14b9c0
 
 
 # AV-Link: Temporally-Aligned Diffusion Features for Cross-Modal Audio-Video Generation

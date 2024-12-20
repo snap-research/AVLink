@@ -26,5 +26,13 @@ a template of our project page can be found under `docs` directory
 ## Citation
 If you find this paper useful in your research, please consider citing:
 ```
-TODO
+@misc{avlink,
+      title={AV-Link: Temporally-Aligned Diffusion Features for Cross-Modal Audio-Video Generation}, 
+      author={Moayed Haji-Ali and Willi Menapace and Aliaksandr Siarohin and Ivan Skorokhodov and Alper Canberk and Kwot Sin Lee and Vicente Ordonez and Sergey Tulyakov},
+      year={2024},
+      eprint={2412.15191},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2412.15191}, 
+}
 ```

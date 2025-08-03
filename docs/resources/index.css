@@ -842,3 +842,16 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+
+.table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* Make sure text in table cells can wrap */
+.table th,
+.table td {
+  white-space: normal;     /* Allow line breaks */
+  word-wrap: break-word;   /* Break long words if needed */
+  vertical-align: top;     /* So text/video align at the top */
+}

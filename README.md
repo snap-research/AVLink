@@ -1,4 +1,4 @@
-# AV-Link: Temporally-Aligned Diffusion Features for Cross-Modal Audio-Video Generation
+# AV-Link: Temporally-Aligned Diffusion Features for Cross-Modal Audio-Video Generation (ICCV 2025)
 [![Project Page](https://img.shields.io/badge/Project-Page-green.svg)](https://snap-research.github.io/AVLink/)
 [![arXiv](https://img.shields.io/badge/arXiv-2311.18822-b31b1b)](https://arxiv.org/abs/2412.15191)
 
